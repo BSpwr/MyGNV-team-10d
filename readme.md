@@ -61,5 +61,5 @@ The checkboxes are below.
 - [X] Jenny Baik
 - [X] Osiris Villacampa
 - [X] Ryan Carter
-- [ ] Sam Bevans-Kerr
+- [X ] Sam Bevans-Kerr
 - [ ] Chase Root
