@@ -61,5 +61,9 @@ The checkboxes are below.
 - [X] Jenny Baik
 - [X] Osiris Villacampa
 - [X] Ryan Carter
+<<<<<<< HEAD
 - [X] Sam Bevans-Kerr
+=======
+- [X ] Sam Bevans-Kerr
+>>>>>>> master
 - [ ] Chase Root
