@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
+import IndivProvider from './IndivProvider'
 
 class DisplayProviders extends React.Component {
   render() {
@@ -22,7 +23,9 @@ class DisplayProviders extends React.Component {
         if (provider._id === selectedProvider) {
           selectedStyle = { backgroundColor: 'orange' };
         }
+        
         return (
+        
           <tr
             key={provider._id}
             style={selectedStyle}
@@ -34,13 +37,21 @@ class DisplayProviders extends React.Component {
           </tr>
         );
       });
-
+      console.log(providers)
+    
     return (
       <React.Fragment>
-        <Table responsive='sm'>
-          <tbody>{providerList}</tbody>
-        </Table>
+        {/* <IndivProvider providers></IndivProvider> */}
+        {/* <Table responsive='sm'> */}
+          <tbody>
+            {providerList}
+            <Link to={''}> 
+            </Link>
+          </tbody>
+          
+        {/* </Table> */}
       </React.Fragment>
+
     );
   }
 }

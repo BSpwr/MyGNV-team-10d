@@ -10,6 +10,22 @@ import Title from './components/Title';
 import Categories from './components/Categories';
 
 import { Route, Switch } from 'react-router-dom';
+import IndivProvider from './components/IndivProvider';
+
+const IndividualProvider= () => { // i wanna be able to just access providers but idk how to do that without having 
+  return (
+    <>
+      <h3>Individual Provider Page</h3>
+      {providers.map((provider, index) => (
+        <h5 key={index}>
+          <Link to={`/provider/${index + 1}`}>{provider}'s Page</Link>
+        </h5>
+      ))}
+    </>
+  )
+};
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +49,7 @@ class App extends React.Component {
 
   updateSelected = (id) => {
     this.setState({ selectedProvider: id });
+    console.log(id)
   };
 
   render() {
@@ -43,7 +60,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={MainPage} />
           <Route
-            path='/search'
+            exact path='/search'
             render={() => (
               <SearchBar
                 providers={this.state.providers}
@@ -52,9 +69,20 @@ class App extends React.Component {
             )}
           />
           <Route
-            path='/providers'
+            exact path='/providers'
             render={() => (
               <DisplayProviders
+                providers={this.state.providers}
+                filterText={this.state.filterText}
+                selectedProvider={this.state.selectedProvider}
+                updateSelected={this.updateSelected}
+              />
+            )}
+          />
+          <Route
+            exact path='/providers/:id'
+            render={()=> (
+              <IndivProvider 
                 providers={this.state.providers}
                 filterText={this.state.filterText}
                 selectedProvider={this.state.selectedProvider}
