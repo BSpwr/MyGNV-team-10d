@@ -1,12 +1,20 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
+const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
+
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'cheap-module-source-map', // 'eval' is not supported by error-overlay-webpack-plugin
+  plugins: [new ErrorOverlayPlugin()],
+  devtool: 'cheap-module-source-map', // Needed by error-overlay-webpack-plugin
   devServer: {
     contentBase: './dist',
     hot: true,
     host: `localhost`,
+  },
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
 });

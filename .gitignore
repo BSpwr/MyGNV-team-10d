@@ -16,3 +16,6 @@ npm-debug.log*
 
 # config files with keys
 /server/config/config.js
+
+# files for database ingest
+data.json

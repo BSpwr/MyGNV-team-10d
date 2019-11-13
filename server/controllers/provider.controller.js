@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
 const Provider = require('../models/provider.model.js');
 
 /* Create a provider */
 exports.create = function(req, res) {
-  let provider = new Provider(req.body);
+  const provider = new Provider(req.body);
 
   // TODO: ADD FIELDS
 
@@ -27,12 +26,12 @@ exports.read = function(req, res) {
 
 /* Update a provider */
 exports.update = function(req, res) {
-  let provider = req.provider;
+  const provider = req.provider;
 
   // TODO: ADD FIELDS
 
   /* Save the listing */
-  provider.save(err => {
+  provider.save((err) => {
     if (err) {
       console.log(err);
       res.status(400).send(err);
@@ -45,8 +44,8 @@ exports.update = function(req, res) {
 
 /* Delete a listing */
 exports.delete = function(req, res) {
-  let provider = req.provider;
-  Provider.deleteOne(provider, err => {
+  const provider = req.provider;
+  Provider.deleteOne(provider, (err) => {
     if (err) {
       console.log(err);
       res.status(400).send(err);
@@ -68,15 +67,9 @@ exports.list = function(req, res) {
     });
 };
 
-/* 
-  Middleware: find a listing by its ID, then pass it to the next request handler. 
-
-  HINT: Find the listing using a mongoose query, 
-        bind it to the request object as the property 'listing', 
-        then finally call next
- */
+/* Middleware to get a provider from database by ID */
 exports.providerByID = function(req, res, next, id) {
-  Provider.findById(id).exec((err, listing) => {
+  Provider.findById(id).exec((err, provider) => {
     if (err) {
       res.status(400).send(err);
     } else {

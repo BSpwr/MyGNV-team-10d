@@ -19,7 +19,7 @@ const webpackDevConfig = require('../../webpack.dev.js');
 const providerRouter = require('../routes/provider.route.js');
 
 module.exports.start = function() {
-  //connect to database
+  // connect to database
   mongoose.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -32,32 +32,32 @@ module.exports.start = function() {
   if (devServerEnabled) {
     webpackDevConfig.devServer.port = port;
 
-    //reload=true:Enable auto reloading when changing JS files or content
-    //timeout=1000:Time from disconnecting from server to reconnecting
+    // reload=true:Enable auto reloading when changing JS files or content
+    // timeout=1000:Time from disconnecting from server to reconnecting
     webpackDevConfig.entry.unshift(
-      'webpack-hot-middleware/client?reload=true&timeout=1000'
+      'webpack-hot-middleware/client?reload=true&timeout=1000',
     );
 
-    //Add HMR plugin
+    // Add HMR plugin
     webpackDevConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 
     const compiler = webpack(webpackDevConfig);
 
-    //Enable "webpack-dev-middleware"
+    // Enable "webpack-dev-middleware"
     app.use(
       webpackDevMiddleware(compiler, {
         publicPath: webpackDevConfig.output.publicPath,
-      })
+      }),
     );
 
-    //Enable "webpack-hot-middleware"
+    // Enable "webpack-hot-middleware"
     app.use(webpackHotMiddleware(compiler));
   }
 
-  //enable request logging for development debugging
+  // enable request logging for development debugging
   app.use(morgan('dev'));
 
-  //body parsing middleware
+  // body parsing middleware
   app.use(bodyParser.json());
 
   app.get('/api', (req, res) => {

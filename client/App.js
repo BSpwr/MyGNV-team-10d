@@ -1,43 +1,54 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
+import axios from 'axios';
 
 import SearchBar from './components/SearchBar';
+import DisplayProviders from './components/DisplayProviders';
+import Title from './components/Title';
+import NavBar from './components/NavBar';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      filterText: '',
-    };
+    this.state = { providers: {}, filterText: '', selectedProvider: '' };
   }
 
-  updateFilterText(value) {
-    this.setState({ filterText: value });
+  componentDidMount() {
+    axios
+      .get('/api/provider')
+      .then((res) => {
+        this.setState({ providers: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
+  updateFilterText = (value) => {
+    this.setState({ filterText: value });
+  };
+
+  updateSelected = (id) => {
+    this.setState({ selectedProvider: id });
+  };
 
   render() {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className='App-link'
-            href='https://reactjs.org'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            {this.state.filterText}
-          </a>
-        </header>
-        <body>
-          <SearchBar updateFilterText={this.updateFilterText.bind(this)} />
-        </body>
-      </div>
+      <React.Fragment>
+        <NavBar />
+        <Title />
+        <SearchBar
+          providers={this.state.providers}
+          updateFilterText={this.updateFilterText}
+        />
+        {/* <DisplayProviders
+          providers={this.state.providers}
+          filterText={this.state.filterText}
+          selectedProvider={this.state.selectedProvider}
+          updateSelected={this.updateSelected}
+        /> */}
+      </React.Fragment>
     );
   }
 }

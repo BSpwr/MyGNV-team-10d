@@ -2,70 +2,70 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 /* Create your schema */
-let providerSchema = new Schema({
+const providerSchema = new Schema({
   'Provider Name': String,
   'Services Provided': String,
   'Child & Families': {
-    Adoption: String,
+    'Adoption': String,
     'Domestic Violence/ Abuse': String,
     'Elder Services': String,
-    Infants: String,
+    'Infants': String,
   },
-  Education: String,
-  Financial: {
+  'Education': String,
+  'Financial': {
     'Eviction/ Foreclosure': String,
     'Social Security': String,
-    Utilities: String,
+    'Utilities': String,
   },
   'Health & Wellness': {
-    Acupuncture: String,
+    'Acupuncture': String,
     'Cancer-Related': String,
-    Dental: String,
-    Disability: String,
+    'Dental': String,
+    'Disability': String,
     'HIV-Related': String,
     'Massage Therapy': String,
-    Medical: String,
+    'Medical': String,
     'Mental Health': String,
     'Occupational Therapy': String,
-    Pharmacy: String,
+    'Pharmacy': String,
     'Physical Therapy': String,
     'Substance Abuse': String,
     'Vision Care': String,
   },
-  Job: String,
-  Legal: {
+  'Job': String,
+  'Legal': {
     'Civil Liberties/ Social Justice': String,
-    Immigration: String,
+    'Immigration': String,
     'Law Enforcement': String,
     'Photo Identification': String,
     'Voter Registration': String,
   },
   'Crisis Events': {
     'Crisis Counseling': String,
-    Disaster: String,
-    Shelters: String,
+    'Disaster': String,
+    'Shelters': String,
     'Victim Services': String,
   },
-  Transportation: String,
+  'Transportation': String,
   'Basic Needs': {
-    Clothing: String,
+    'Clothing': String,
     'Food Assistance': String,
-    Housing: String,
+    'Housing': String,
   },
-  Other: {
-    Burial: String,
-    Computer: String,
+  'Other': {
+    'Burial': String,
+    'Computer': String,
     'Information and Referral': String,
-    Veterans: String,
-    Veterinary: String,
+    'Veterans': String,
+    'Veterinary': String,
   },
   'Provider Info': {
     'Eligibility Criteria': String,
     'Address 1': String,
     'Address 2': String,
-    City: String,
-    State: String,
-    Zipcode: String,
+    'City': String,
+    'State': String,
+    'Zipcode': String,
     'Contact Name': String,
     'Phone 1 Name': String,
     'Phone 1': String,
@@ -73,7 +73,7 @@ let providerSchema = new Schema({
     'Phone 2': String,
     'Email Address': String,
     'Bus Routes': String,
-    Website: String,
+    'Website': String,
     'Walk in': String,
     'Hours Open': {
       Monday: String,
@@ -92,7 +92,7 @@ let providerSchema = new Schema({
     'Application Needed': String,
     'Application Online': String,
     'Application In Person': String,
-    Cost: String,
+    'Cost': String,
     'Translation Available': String,
     'United Way Approval': String,
     'Additional Information': String,
@@ -102,33 +102,36 @@ let providerSchema = new Schema({
   'Maximum Age': String,
   'Low-Income Household': String,
   'Employment / Education': String,
-  Homelessness: String,
+  'Homelessness': String,
   'City of Gainesville Resident': String,
   'Alachua County Resident': String,
-  Veteran: String,
+  'Veteran': String,
   'Disaster, Crime and/or Abuse Victim': String,
-  Uninsured: String,
-  Female: String,
-  Male: String,
+  'Uninsured': String,
+  'Female': String,
+  'Male': String,
 });
 
-/* create a 'pre' function that adds the updated_at and created_at if not already there property */
 providerSchema.pre('save', function(next) {
-  // Sanity check to make sure name and code are provided
-  if (this['Provider Name'] == undefined) throw '[DB]: name not provided';
+  // Sanity check to make sure at least name is provided
+  // TODO: Add error checking as needed
+  /* eslint-disable babel/no-invalid-this */
+  if (this['Provider Name'] === undefined) {
+    throw new Error('[DB]: name not provided');
+  }
 
   // Get date object
-  let currDate = new Date();
+  const currDate = new Date();
   // Update the updated_at property
+  /* eslint-disable babel/no-invalid-this */
   this.updated_at = currDate;
   // If created_at is not present then create it
+  /* eslint-disable babel/no-invalid-this */
   if (!this.created_at) this.created_at = currDate;
   // Pass onto next middleware
   next();
 });
 
-/* Use your schema to instantiate a Mongoose model */
-let Provider = mongoose.model('Provider', providerSchema);
+const Provider = mongoose.model('Provider', providerSchema);
 
-/* Export the model to make it available to other parts of your Node application */
 module.exports = Provider;

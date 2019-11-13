@@ -1,6 +1,6 @@
 const provider = require('../controllers/provider.controller.js');
 const express = require('express');
-const router = express.Router();
+const router = new express.Router();
 
 router
   .route('/')
