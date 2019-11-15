@@ -5,8 +5,6 @@ import SubCategoryCard from './SubCategoryCard';
 
 class Categories extends React.Component {
   render() {
-    const iconSize = 3;
-
     const containerStyle = {
       maxWidth: '30em',
       margin: 'auto auto',

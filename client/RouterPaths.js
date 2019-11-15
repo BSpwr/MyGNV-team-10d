@@ -5,6 +5,7 @@ const cleanPath = (path) => {
 const mainPath = '/';
 const searchPath = '/search';
 const adminPath = '/admin';
+const wizardPath = '/wizard';
 const displayProvidersPath = '/providers';
 
 const topLevelCategoriesPath = '/categories';
@@ -27,7 +28,7 @@ const paths = {
   searchPath,
   adminPath,
   displayProvidersPath,
-
+  wizardPath,
   topLevelCategoriesPath,
 
   familyServicesPath,

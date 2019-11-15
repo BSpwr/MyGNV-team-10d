@@ -7,6 +7,7 @@ import SearchBar from './components/SearchBar';
 import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
+import Wizard from './components/Wizard';
 import Categories from './components/Categories';
 import SubCategories from './components/SubCategories';
 
@@ -124,6 +125,7 @@ class App extends React.Component {
               />
             )}
           />
+          <Route exact path={paths.wizardPath} render={() => <Wizard />} />
           {categoryRoutes}
         </Switch>
       </React.Fragment>

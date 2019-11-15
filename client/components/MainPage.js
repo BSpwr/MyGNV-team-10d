@@ -23,7 +23,9 @@ class MainPage extends React.Component {
               </RedirectButton>
             </Col>
             <Col md='auto' style={{ textAlign: 'center' }}>
-              <RedirectButton path='/'>What can I qualify for?</RedirectButton>
+              <RedirectButton path={paths.wizardPath}>
+                What can I qualify for?
+              </RedirectButton>
             </Col>
           </Row>
         </Container>
