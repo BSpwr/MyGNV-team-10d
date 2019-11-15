@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Container } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
@@ -21,15 +22,17 @@ class SearchBar extends React.Component {
     );
     return (
       <React.Fragment>
-        <Typeahead
-          id='searchBox'
-          labelKey='name'
-          options={providerList}
-          placeholder={isLoading ? 'Loading...' : 'Search for a provider'}
-          ref={this.filterRef}
-          onInputChange={this.filterUpdate}
-          onChange={(e) => this.filterUpdate(e[0])}
-        />
+        <Container>
+          <Typeahead
+            id='searchBox'
+            labelKey='name'
+            options={providerList}
+            placeholder={isLoading ? 'Loading...' : 'Search for a provider'}
+            ref={this.filterRef}
+            onInputChange={this.filterUpdate}
+            onChange={(e) => this.filterUpdate(e[0])}
+          />
+        </Container>
       </React.Fragment>
     );
   }

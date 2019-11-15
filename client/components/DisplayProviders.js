@@ -59,10 +59,10 @@ class DisplayProviders extends React.Component {
 }
 
 DisplayProviders.propTypes = {
-  selectedProvider: PropTypes.string,
-  updateSelected: PropTypes.func,
-  filterText: PropTypes.string,
-  providers: PropTypes.instanceOf(Object),
+  selectedProvider: PropTypes.string.isRequired,
+  updateSelected: PropTypes.func.isRequired,
+  filterText: PropTypes.string.isRequired,
+  providers: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default DisplayProviders;

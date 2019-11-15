@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
-import CategoryCard from './CategoryCard';
+import SubCategoryCard from './SubCategoryCard';
 
 class Categories extends React.Component {
   render() {
@@ -24,7 +24,7 @@ class Categories extends React.Component {
     const categoryRowList = [];
     let categoryCol = <React.Fragment></React.Fragment>;
     this.props.categoryList.forEach((category, i) => {
-      if (i % 3 == 0 && i != 0) {
+      if (i % 1 == 0 && i != 0) {
         categoryRowList.push(categoryCol);
         categoryCol = <React.Fragment></React.Fragment>;
       }
@@ -32,9 +32,7 @@ class Categories extends React.Component {
         <React.Fragment>
           {categoryCol}
           <Col style={colStyle}>
-            <CategoryCard
-              iconName={category.iconName}
-              iconSize={iconSize}
+            <SubCategoryCard
               categoryName={category.categoryName}
               path={category.path}
             />
