@@ -12,20 +12,6 @@ import Categories from './components/Categories';
 import { Route, Switch } from 'react-router-dom';
 import IndivProvider from './components/IndivProvider';
 
-const IndividualProvider= () => { // i wanna be able to just access providers but idk how to do that without having 
-  return (
-    <>
-      <h3>Individual Provider Page</h3>
-      {providers.map((provider, index) => (
-        <h5 key={index}>
-          <Link to={`/provider/${index + 1}`}>{provider}'s Page</Link>
-        </h5>
-      ))}
-    </>
-  )
-};
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -80,15 +66,16 @@ class App extends React.Component {
             )}
           />
           <Route
-            exact path='/providers/:id'
-            render={()=> (
-              <IndivProvider 
-                providers={this.state.providers}
-                filterText={this.state.filterText}
-                selectedProvider={this.state.selectedProvider}
-                updateSelected={this.updateSelected}
-              />
-            )}
+            exact path='/provider/:id'
+            component={IndivProvider}
+            // render={()=> (
+            //   <IndivProvider 
+            //     providers={this.state.providers}
+            //     filterText={this.state.filterText}
+            //     selectedProvider={this.state.selectedProvider}
+            //     updateSelected={this.updateSelected}
+            //   />
+            // )}
           />
           <Route exact path='/categories' component={Categories} />
         </Switch>

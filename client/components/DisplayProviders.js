@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
 import IndivProvider from './IndivProvider'
-
+import { Link } from 'react-router-dom';
 class DisplayProviders extends React.Component {
   render() {
     const selectedProvider = this.props.selectedProvider
@@ -25,7 +25,7 @@ class DisplayProviders extends React.Component {
         }
         
         return (
-        
+        <>
           <tr
             key={provider._id}
             style={selectedStyle}
@@ -35,21 +35,23 @@ class DisplayProviders extends React.Component {
           >
             <td>{provider['Provider Name']} </td>
           </tr>
+          <div>{providers.map((provider, id) => (
+              <Link to={'/provider/${id}'}>{provider}</Link>
+            ))
+          }
+          </div>
+          
+
+        </>
         );
       });
       console.log(providers)
     
     return (
       <React.Fragment>
-        {/* <IndivProvider providers></IndivProvider> */}
-        {/* <Table responsive='sm'> */}
           <tbody>
             {providerList}
-            <Link to={''}> 
-            </Link>
           </tbody>
-          
-        {/* </Table> */}
       </React.Fragment>
 
     );

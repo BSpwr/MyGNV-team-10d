@@ -1,20 +1,17 @@
 import React from 'react';
-
-class IndivProvider extends React.Component {
-  render() {
-    console.log( "hello us this printing "+ this.props.selectedProvider )
-    const data = this.props.providers;
-    const selectProvider = this.props.selectedProvider;
-    return (
-      <div>
-        <h1>
-          text
-        </h1>
-      </div>
-    )
-    
-  
-  }
-}
+const IndivProvider= () => { 
+  // const data;
+  return (
+    <>
+    <h1> is this working </h1>
+      {/* <h3>Individual Provider Page</h3>
+      {providers.map((provider, index) => (
+        <h5 key={index}>
+          <Link to={`/provider/${index + 1}`}>{provider}'s Page</Link>
+        </h5>
+      ))} */}
+    </>
+  )
+};
 
 export default IndivProvider;

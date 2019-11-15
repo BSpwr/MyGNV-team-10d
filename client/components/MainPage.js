@@ -5,8 +5,8 @@ class MainPage extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={}>Find a resource now.</Button>
-        <Button onClick={}>What can I qualify for?</Button>
+        <Button>Find a resource now.</Button>
+        <Button>What can I qualify for?</Button>
       </div>
     );
   }
