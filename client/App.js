@@ -47,7 +47,7 @@ class App extends React.Component {
 
   updateSelected = (id) => {
     this.setState({ selectedProvider: id });
-    console.log(id)
+    console.log(id);
   };
 
   getCategoryRoutes() {
@@ -128,18 +128,17 @@ class App extends React.Component {
             )}
           />
           <Route
-            exact path='/provider/:id'
-            component={IndivProvider}
-            // render={()=> (
-            //   <IndivProvider 
-            //     providers={this.state.providers}
-            //     filterText={this.state.filterText}
-            //     selectedProvider={this.state.selectedProvider}
-            //     updateSelected={this.updateSelected}
-            //   />
-            // )}
+            exact
+            path='/provider/:id'
+            render={() => (
+              <IndivProvider
+                providers={this.state.providers}
+                filterText={this.state.filterText}
+                selectedProvider={this.state.selectedProvider}
+                updateSelected={this.updateSelected}
+              />
+            )}
           />
-          <Route exact path='/categories' component={Categories} />
           {categoryRoutes}
         </Switch>
       </React.Fragment>
