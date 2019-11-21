@@ -28,10 +28,20 @@ const local = new LocalStrategy((username, password, done) => {//password/userna
 					else{
 						return done(null, user);
 					}
-				})
+				});
 			}
-		})
+		});
 	.catch(e => done(e));
 });
 
 passport.use("local", local);
+
+app.post('/register', function(req, res, next){
+	bcrypt.gensalt(10, function(err, salt){
+		if(err) return next(err);
+		bcrypt.hash(req.body.password, salt, function(err, hash){
+			if(err) return next(err);
+			newUser.password = hash;
+		});
+	});
+});
