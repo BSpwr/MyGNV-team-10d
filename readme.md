@@ -1,14 +1,31 @@
 # MyGNV
 
-A React + Express webapp to help Gainesville residents find resources easier.
+A React + Express Webapp to help Gainesville residents find resources easier.
 
 ## Getting Started
 
 1) Clone the repo
 2) `cd mygnv-team-10d`
+2) Copy your server `config.js` to `server/config/config.js`
 3) `npm install`
 4) `npm start`
 5) Navigate to `localhost:8080`
+
+## Linting your Code
+
+Before making a pull request, please lint and fix your code.
+
+1) `npm run lint`
+
+The linter can automatically fix some (not all) issues with the below command.
+
+2) `npm run lint:fix`
+
+## Building for Deployment
+
+1) `npm run build`
+2) `npm run start:prod`
+3) Built files are being served on `localhost:8080`
 
 ## Create, Checkout & Check-in Branches
 
@@ -20,7 +37,7 @@ When starting a new feature, work in a feature branch.
 Now you can add commits and check in the branch.
 
 3) `git add whatever_needs_to_be_added`
-4) `git commit -m "Commit message`
+4) `git commit -m "commit message"`
 5) `git push origin initials/featureName`
 
 If you have any merge conflicts when pulling and you have issues ask for help ASAP.
@@ -35,13 +52,15 @@ If you have any merge conflicts when pulling and you have issues ask for help AS
 
 If there are merge conflicts a text editor may open. VScode is great for this since it shows the diffs and changes clearly. Edit the merge commit to fix issues and commit your updated branch with `git push origin initials/featureName`.
 
+You should have push permissions in this repo, so feel free to push your branches directly to this repo. You can also use a fork if you want to, but the steps for bringing your feature branch up to date with master are different for branches on a fork.
+
 ## Make Pull, Push & Merge Requests
 
 When you want to integrate your feature into master, make a pull request on github from your branch and wait until it is merged by a group member.
 
-To prevent merge conflicts, talk with team members before making large changes. Bring your feature branch up with master often, at least every other day to prevent merge conflicts when trying to merge pull requests.
+To prevent merge conflicts, talk with team members before making large changes. Bring your feature branch up with master often to prevent merge conflicts when trying to merge pull requests.
 
-## Please do the above github steps.
+## Please do the above github steps
 
 Make a new branch called `initials/githubTest`, add a commit adding a check in the checkbox corresponding with your name in the readme. Push request and merge your branch with master.
 This is to fullfil the requirements for the "Managing Team GitHub Page, Shared Repository, and Workflow Process assignment" on canvas.
@@ -49,8 +68,8 @@ This is to fullfil the requirements for the "Managing Team GitHub Page, Shared R
 The checkboxes are below.
 
 - [X] Boris Ermakov-Spektor
-- [ ] Jenny Baik
-- [ ] Osiris Villacampa
-- [ ] Ryan Carter
-- [ ] Sam Bevans-Kerr
-- [ ] Chase Root
+- [X] Jenny Baik
+- [X] Osiris Villacampa
+- [X] Ryan Carter
+- [X] Sam Bevans-Kerr
+- [X] Chase Root
