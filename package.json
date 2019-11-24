@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .js,.jsx; exit 0",
     "lint:fix": "eslint . --ext .js,.jsx --fix; exit 0",
     "build": "webpack --config webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
