@@ -1,2 +1,1 @@
-const server = require('./config/server.js');
-server.start();
+require('./config/express.js').start();

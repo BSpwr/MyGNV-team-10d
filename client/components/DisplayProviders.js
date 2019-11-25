@@ -10,12 +10,10 @@ class DisplayProviders extends React.Component {
       : '';
     const filterText = this.props.filterText ? this.props.filterText : '';
     const providers = this.props.providers ? this.props.providers : {};
-    const providerList = Object.values(providers)
+    const providerList = providers
       .filter((provider) => {
         return (
-          provider['Provider Name']
-            .toLowerCase()
-            .indexOf(filterText.toLowerCase()) >= 0
+          provider.name.toLowerCase().indexOf(filterText.toLowerCase()) >= 0
         );
       })
       .map((provider) => {
@@ -33,7 +31,7 @@ class DisplayProviders extends React.Component {
               this.props.updateSelected(provider._id);
             }}
           >
-            <td>{provider['Provider Name']} </td>
+            <td>{provider.name} </td>
           </tr>
           <div>{providers.map((provider, id) => (
               <Link to={'/provider/${id}'}>{provider}</Link>
@@ -62,7 +60,7 @@ DisplayProviders.propTypes = {
   selectedProvider: PropTypes.string.isRequired,
   updateSelected: PropTypes.func.isRequired,
   filterText: PropTypes.string.isRequired,
-  providers: PropTypes.instanceOf(Object).isRequired,
+  providers: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default DisplayProviders;

@@ -32,7 +32,7 @@ class CategoryCard extends React.Component {
         onMouseEnter={this.startHover}
         onMouseLeave={this.endHover}
         className={this.state.className}
-        variant="outline-*"
+        variant='outline-*'
         style={{
           minWidth: '7em',
           minHeight: '8em',

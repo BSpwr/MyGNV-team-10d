@@ -5,8 +5,6 @@ import SubCategoryCard from './SubCategoryCard';
 
 class Categories extends React.Component {
   render() {
-    const iconSize = 3;
-
     const containerStyle = {
       maxWidth: '30em',
       margin: 'auto auto',
@@ -19,7 +17,7 @@ class Categories extends React.Component {
       justifyContent: 'center',
     };
 
-    const colStyle = { padding: '0 0' };
+    const colStyle = { padding: '0 0 0.5em 0' };
 
     const categoryRowList = [];
     let categoryCol = <React.Fragment></React.Fragment>;
@@ -33,7 +31,7 @@ class Categories extends React.Component {
           {categoryCol}
           <Col style={colStyle}>
             <SubCategoryCard
-              categoryName={category.categoryName}
+              categoryName={category.name}
               path={category.path}
             />
           </Col>
