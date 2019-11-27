@@ -3,6 +3,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import './NavBar.scss';
 import homeIcon from '../images/myGNV_img_black.png';
+import paths from '../RouterPaths';
 
 class NavBar extends React.Component {
   render() {
@@ -30,7 +31,7 @@ class NavBar extends React.Component {
               <Nav className='mr-auto'>
                 <NavLink
                   exact
-                  to='/'
+                  to={paths.mainPath}
                   className='navbar-link'
                   activeClassName='navbar-active'
                 >
@@ -38,7 +39,7 @@ class NavBar extends React.Component {
                 </NavLink>
                 <NavLink
                   exact
-                  to='/search'
+                  to={paths.searchPath}
                   className='navbar-link'
                   activeClassName='navbar-active'
                 >
@@ -46,7 +47,7 @@ class NavBar extends React.Component {
                 </NavLink>
                 <NavLink
                   exact
-                  to='/admin'
+                  to={paths.adminPath}
                   className='navbar-link'
                   activeClassName='navbar-active'
                 >

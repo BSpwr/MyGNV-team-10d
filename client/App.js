@@ -1,38 +1,46 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import paths from './RouterPaths';
+import CategoryRouter from './CategoryRouter';
 
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
 import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
-import Categories from './components/Categories';
-import SubCategories from './components/SubCategories';
 
-import basicNeeds from './components/categories/basicNeeds';
-import crisisServices from './components/categories/crisisServices';
-import familyServices from './components/categories/familyServices';
-import finance from './components/categories/finance';
-import healthServices from './components/categories/healthServices';
-import legalServices from './components/categories/legalServices';
-import other from './components/categories/other';
-import topLevelCategories from './components/categories/topLevelCategories';
-
-import paths from './RouterPaths';
-
-import { Route, Switch } from 'react-router-dom';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { providers: {}, filterText: '', selectedProvider: '' };
+    this.state = {
+      providers: [],
+      categories: [],
+      filterText: '',
+      selectedProvider: '',
+    };
   }
 
   componentDidMount() {
     axios
       .get('/api/provider')
       .then((res) => {
-        this.setState({ providers: res.data });
+        this.setState({ providers: Object.values(res.data) });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get('/api/category')
+      .then((res) => {
+        this.setState({
+          categories: Object.values(res.data).map((category) => {
+            category.path = paths.generateCategoryPath(category);
+            return category;
+          }),
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -47,55 +55,7 @@ class App extends React.Component {
     this.setState({ selectedProvider: id });
   };
 
-  getCategoryRoutes() {
-    return (
-      <React.Fragment>
-        <Route
-          exact
-          path={paths.topLevelCategoriesPath}
-          render={() => <Categories categoryList={topLevelCategories} />}
-        />
-        <Route
-          exact
-          path={paths.basicNeedsPath}
-          render={() => <SubCategories categoryList={basicNeeds} />}
-        />
-        <Route
-          exact
-          path={paths.crisisServicesPath}
-          render={() => <SubCategories categoryList={crisisServices} />}
-        />
-        <Route
-          exact
-          path={paths.familyServicesPath}
-          render={() => <SubCategories categoryList={familyServices} />}
-        />
-        <Route
-          exact
-          path={paths.financePath}
-          render={() => <SubCategories categoryList={finance} />}
-        />
-        <Route
-          exact
-          path={paths.healthServicesPath}
-          render={() => <SubCategories categoryList={healthServices} />}
-        />
-        <Route
-          exact
-          path={paths.legalServicesPath}
-          render={() => <SubCategories categoryList={legalServices} />}
-        />
-        <Route
-          exact
-          path={paths.otherPath}
-          render={() => <SubCategories categoryList={other} />}
-        />
-      </React.Fragment>
-    );
-  }
-
   render() {
-    const categoryRoutes = this.getCategoryRoutes();
     return (
       <React.Fragment>
         <NavBar />
@@ -124,7 +84,7 @@ class App extends React.Component {
               />
             )}
           />
-          {categoryRoutes}
+          <CategoryRouter categories={this.state.categories} />
         </Switch>
       </React.Fragment>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Container } from 'react-bootstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -15,10 +16,8 @@ class SearchBar extends React.Component {
 
   render() {
     const providers = this.props.providers ? this.props.providers : {};
-    const isLoading = Object.keys(providers).length === 0 ? true : false;
-    const providerList = Object.values(providers).map(
-      (provider) => provider['Provider Name'],
-    );
+    const isLoading = providers.length === 0 ? true : false;
+    const providerList = providers.map((provider) => provider.name);
     return (
       <React.Fragment>
         <Container>
@@ -38,8 +37,8 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
-  updateFilterText: PropTypes.func,
-  providers: PropTypes.instanceOf(Object),
+  updateFilterText: PropTypes.func.isRequired,
+  providers: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default SearchBar;

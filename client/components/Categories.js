@@ -5,6 +5,7 @@ import CategoryCard from './CategoryCard';
 
 class Categories extends React.Component {
   render() {
+    console.log(this.props.categoryList);
     const iconSize = 3;
 
     const containerStyle = {
@@ -33,9 +34,9 @@ class Categories extends React.Component {
           {categoryCol}
           <Col style={colStyle}>
             <CategoryCard
-              iconName={category.iconName}
+              iconName={category.icon_name}
               iconSize={iconSize}
-              categoryName={category.categoryName}
+              categoryName={category.name}
               path={category.path}
             />
           </Col>

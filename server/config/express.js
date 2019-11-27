@@ -14,12 +14,13 @@ const devServerEnabled =
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackDevConfig = require('../../webpack.dev.js');
+const webpackDevConfig = require('../../webpack.dev');
 
-const providerRouter = require('../routes/provider.route.js');
+const providerRouter = require('../routes/ProviderRoute');
+const categoryRouter = require('../routes/CategoryRoute');
 
 module.exports.start = function() {
-  // connect to database
+  // Connect to database
   mongoose.connect(config.db.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,6 +29,15 @@ module.exports.start = function() {
   mongoose.set('useFindAndModify', false);
 
   const app = express();
+
+  // Body parsing middleware
+  app.use(bodyParser.json());
+
+  // Routes
+  app.use('/api/provider', providerRouter);
+  app.use('/api/category', categoryRouter);
+
+  // Register all routes before registering webpack middleware
 
   if (devServerEnabled) {
     webpackDevConfig.devServer.port = port;
@@ -55,29 +65,23 @@ module.exports.start = function() {
 
     // Enable "webpack-hot-middleware"
     app.use(webpackHotMiddleware(compiler));
+
+    // Enable request logging for development debugging
+    app.use(morgan('dev'));
   }
 
-  // enable request logging for development debugging
-  app.use(morgan('dev'));
+  // For hosting build files, for production
+  if (!devServerEnabled) {
+    const webpackBuildDir = path.join(__dirname, '../../dist');
+    app.use(express.static(webpackBuildDir));
 
-  // body parsing middleware
-  app.use(bodyParser.json());
+    const htmlEntrypoint = path.join(webpackBuildDir, 'index.html');
 
-  app.get('/api', (req, res) => {
-    res.send('Hello World!');
-  });
-
-  app.use('/api/provider', providerRouter);
-
-  const webpackBuildDir = path.join(__dirname, '../../dist');
-  app.use(express.static(webpackBuildDir));
-
-  const htmlEntrypoint = path.join(webpackBuildDir, 'index.html');
-
-  // Handles any requests that don't match the ones above
-  app.get('*', (req, res) => {
-    res.sendFile(htmlEntrypoint);
-  });
+    // Handles any requests that don't match the ones above
+    app.get('*', (req, res) => {
+      res.sendFile(htmlEntrypoint);
+    });
+  }
 
   app.listen(port, function() {
     console.log('App listening on port: ' + port);
