@@ -10,7 +10,7 @@ import SearchBar from './components/SearchBar';
 import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
-
+import IndivProvider from './components/IndivProvider'; 
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -85,18 +85,11 @@ class App extends React.Component {
               />
             )}
           />
-           {/* <Route
+          <Route
             exact
-            path='/provider/:id'
-            render={() => (
-              <IndivProvider
-                providers={this.state.providers}
-                filterText={this.state.filterText}
-                selectedProvider={this.state.selectedProvider}
-                updateSelected={this.updateSelected}
-              />
-            )}
-          /> */}
+            path={paths.individualPath + '/:id'} 
+            render={(props) => (<IndivProvider id={props.match.params.id}/>)}
+          /> 
           <CategoryRouter categories={this.state.categories} />
         </Switch>
       </React.Fragment>

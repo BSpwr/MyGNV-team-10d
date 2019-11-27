@@ -21,6 +21,7 @@ const searchPath = '/search';
 const adminPath = '/admin';
 const displayProvidersPath = '/providers';
 const topLevelCategoriesPath = '/categories';
+const individualPath = '/provider';
 
 /* eslint-disable no-unused-vars */
 const paths = {
@@ -29,7 +30,7 @@ const paths = {
   adminPath,
   displayProvidersPath,
   topLevelCategoriesPath,
-
+  individualPath,
   generateCategoryPath,
 };
 

@@ -1,28 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const IndivProvider = (props) => {
-  // const data;
-  const { providers } = props;
+class IndivProvider extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      provider: null,
+    };
+  }
+componentDidMount() {
+  axios
+    .get(`/api/provider/${this.props.id}`)
+    .then((res) => {
+      this.setState({ provider: res.data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+render() {
+  console.log("Reached IndivProvider");
+  console.log(this.props.id);
+
+  console.log(this.state.provider)
+  var currProv = this.state.provider
+  
   return (
     <>
-      <h1> is this working </h1>
-      <h3>Individual Provider Page</h3>
-      {Object.values(providers).map((provider) => (
-        <h5 key={provider._id}>
-          <Link to={`/provider/${provider._id}`}>
-            {provider['Provider Name']}
-          </Link>
-        </h5>
-      ))}
+      <div>
+        <h1>{currProv.name}</h1>
+        <p>{currProv.services_provided!==""? currProv.services_provided:""}</p>
+        <p>{currProv.translation_available!==""? currProv.translation_available:"Translation is not available"}</p>
+        <p>{currProv.eligibility_criteria!==""?currProv.eligibility_criteria:""}</p>
+        <p>{currProv.service_area!==""?currProv.serve_area:""}</p>
+        <p>{}</p>
+      </div>
     </>
   );
 };
-
+}
 IndivProvider.PropTypes = {
-  providers: PropTypes.instanceOf(Object).isRequired,
+  id: PropTypes.instanceOf(String).isRequired,
 };
 
 export default IndivProvider;
