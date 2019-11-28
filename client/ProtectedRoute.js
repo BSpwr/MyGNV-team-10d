@@ -1,26 +1,27 @@
-import React from 'reactn';
+import React, { useGlobal } from 'reactn';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Auth from './api/Auth';
-
-const ProtectedRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={async (props) =>
-      (await Auth.isAuthenticated()) === true ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location },
-          }}
-        />
-      )
-    }
-  />
-);
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const [global] = useGlobal();
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        global.isAuthenticated === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
 
 ProtectedRoute.propTypes = {
   component: PropTypes.instanceOf(React.Component).isRequired,

@@ -36,6 +36,7 @@ exports.login = (req, res) => {
         res.json({
           success: true,
           message: 'Authentication successful',
+          email: req.user.email,
         });
       });
     }
@@ -49,7 +50,11 @@ exports.logout = (req, res) => {
 
 exports.isLoggedIn = (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ success: true, message: 'User is logged in' });
+    res.json({
+      success: true,
+      message: 'User is logged in',
+      email: req.user.email,
+    });
   } else {
     res.json({ success: false, message: 'User is not logged in' });
   }

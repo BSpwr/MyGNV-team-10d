@@ -11,9 +11,14 @@ import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
 
+import LogoutButton from './components/auth/LogoutButton';
+import AuthState from './components/auth/AuthState';
+import Login from './components/auth/Login';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
+    // this.global.auth.login('taco', 'cat');
     this.state = {
       providers: [],
       categories: [],
@@ -58,9 +63,12 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <AuthState />
         <NavBar />
         <Title />
+        <LogoutButton />
         <Switch>
+          <Route path={paths.login} component={Login} />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route
             exact
