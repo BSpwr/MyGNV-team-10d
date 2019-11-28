@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root';
-import React from 'react';
+import React from 'reactn';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import paths from './RouterPaths';

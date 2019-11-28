@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import CategoryCard from './CategoryCard';
