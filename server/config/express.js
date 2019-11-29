@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const history = require('connect-history-api-fallback');
 
 const config = require('./config');
 const port = config.port || 8080;
@@ -16,8 +17,13 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackDevConfig = require('../../webpack.dev');
 
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('./passport');
+
 const providerRouter = require('../routes/ProviderRoute');
 const categoryRouter = require('../routes/CategoryRoute');
+const userRouter = require('../routes/UserRoute');
 
 module.exports.start = function() {
   // Connect to database
@@ -30,44 +36,42 @@ module.exports.start = function() {
 
   const app = express();
 
-  // Body parsing middleware
+  // Parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: false }));
+  // Parse application/json
   app.use(bodyParser.json());
+
+  // TODO: MAKE SECURE SECRET, PREFERABLY ENV VAR
+  app.use(
+    session({
+      secret: 'lol cats',
+      resave: false,
+      saveUninitialized: false,
+      store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    }),
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   // Routes
   app.use('/api/provider', providerRouter);
   app.use('/api/category', categoryRouter);
+  app.use('/api/user', userRouter);
 
   // Register all routes before registering webpack middleware
 
   if (devServerEnabled) {
-    webpackDevConfig.devServer.port = port;
-
-    // reload=true:Enable auto reloading when changing JS files or content
-    // timeout=1000:Time from disconnecting from server to reconnecting
-    webpackDevConfig.entry.unshift(
-      'webpack-hot-middleware/client?reload=true&timeout=1000',
-    );
-
-    // Add HMR plugin
-    webpackDevConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
-
-    const compiler = webpack(webpackDevConfig);
-    const history = require('connect-history-api-fallback');
-
+    // Handles any requests that don't match the ones above
     app.use(history());
-
-    // Enable "webpack-dev-middleware"
-    app.use(
-      webpackDevMiddleware(compiler, {
-        publicPath: webpackDevConfig.output.publicPath,
-      }),
-    );
-
-    // Enable "webpack-hot-middleware"
-    app.use(webpackHotMiddleware(compiler));
 
     // Enable request logging for development debugging
     app.use(morgan('dev'));
+
+    const compiler = webpack(webpackDevConfig);
+    // Enable "webpack-dev-middleware"
+    app.use(webpackDevMiddleware(compiler));
+    // Enable "webpack-hot-middleware"
+    app.use(webpackHotMiddleware(compiler));
   }
 
   // For hosting build files, for production
@@ -78,7 +82,7 @@ module.exports.start = function() {
     const htmlEntrypoint = path.join(webpackBuildDir, 'index.html');
 
     // Handles any requests that don't match the ones above
-    app.get('*', (req, res) => {
+    app.get('/*', (req, res) => {
       res.sendFile(htmlEntrypoint);
     });
   }

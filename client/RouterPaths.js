@@ -18,6 +18,8 @@ const generateCategoryPath = (category, endPath = '') => {
 
 const mainPath = '/';
 const searchPath = '/search';
+const login = '/login';
+const register = '/register';
 const adminPath = '/admin';
 const displayProvidersPath = '/providers';
 const topLevelCategoriesPath = '/categories';
@@ -26,6 +28,8 @@ const topLevelCategoriesPath = '/categories';
 const paths = {
   mainPath,
   searchPath,
+  login,
+  register,
   adminPath,
   displayProvidersPath,
   topLevelCategoriesPath,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 
 class IndivProvider extends React.Component {
 

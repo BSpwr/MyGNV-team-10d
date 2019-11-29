@@ -4,7 +4,7 @@ const Provider = require('../models/ProviderSchema');
 exports.create = (req, res) => {
   const provider = new Provider(req.body);
 
-  provider.save(function(err) {
+  provider.save((err) => {
     if (err) {
       console.log(err);
       res.status(400).send(err);
@@ -22,6 +22,7 @@ exports.read = (req, res) => {
 
 // Update a provider
 exports.update = (req, res) => {
+  // TODO: UPDATE FIELDS FROM BODY?
   const provider = req.provider;
 
   provider.save((err) => {
