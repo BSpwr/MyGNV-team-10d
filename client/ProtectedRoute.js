@@ -1,6 +1,7 @@
 import React, { useGlobal } from 'reactn';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import paths from './RouterPaths';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const [global] = useGlobal();
@@ -13,7 +14,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: paths.login,
               state: { from: props.location },
             }}
           />

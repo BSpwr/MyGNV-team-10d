@@ -1,18 +1,18 @@
 import React from 'reactn';
 import { Redirect } from 'react-router-dom';
-import { Button, Form, Container, Alert } from 'react-bootstrap';
+import { Button, Form, Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
-class Login extends React.Component {
+class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       redirectToReferrer: false,
       email: '',
       password: '',
-      invalidAttempt: false,
+      wasSuccess: false,
     };
   }
 
@@ -27,17 +27,12 @@ class Login extends React.Component {
   login = (event) => {
     event.preventDefault();
     axios
-      .post('/api/user/login', {
+      .post('/api/user/register', {
         email: this.state.email,
         password: this.state.password,
       })
       .then((res) => {
-        this.setGlobal({
-          isAuthenticated: res.data.success,
-          userEmail: res.data.email,
-        });
-        if (res.data.success) this.setState({ redirectToReferrer: true });
-        else this.setState({ invalidAttempt: true });
+        if (res.data.success) this.setState({ wasSuccess: true });
       })
       .catch((err) => {
         console.log(err);
@@ -47,25 +42,13 @@ class Login extends React.Component {
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
 
-    if (this.state.redirectToReferrer === true || this.global.isAuthenticated) {
+    if (this.state.wasSuccess === true) {
       return <Redirect to={from} />;
     }
 
     return (
       <Container>
-        <h3>Login</h3>
-        {this.state.invalidAttempt ? (
-          <Alert
-            variant='danger'
-            style={{
-              marginTop: '1em',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}
-          >
-            Invalid email or password. Please try again.
-          </Alert>
-        ) : null}
+        <h3>Register</h3>
         <Form>
           <Form.Group controlId='formBasicEmail'>
             <Form.Label>Email address</Form.Label>
@@ -98,9 +81,9 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+Register.propTypes = {
   history: PropTypes.instanceOf(Object).isRequired,
   location: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default Login;
+export default Register;

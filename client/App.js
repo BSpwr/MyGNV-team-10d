@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import paths from './RouterPaths';
 import CategoryRouter from './CategoryRouter';
+import ProtectedRoute from './ProtectedRoute';
 
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
@@ -14,6 +15,7 @@ import Title from './components/Title';
 import LogoutButton from './components/auth/LogoutButton';
 import AuthState from './components/auth/AuthState';
 import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 
 class App extends React.Component {
   constructor(props) {
@@ -68,6 +70,7 @@ class App extends React.Component {
         <Title />
         <LogoutButton />
         <Switch>
+          <ProtectedRoute path={paths.register} component={Register} />
           <Route path={paths.login} component={Login} />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route
