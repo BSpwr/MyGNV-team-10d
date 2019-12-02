@@ -12,7 +12,6 @@ import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
 
-import LogoutButton from './components/auth/LogoutButton';
 import AuthState from './components/auth/AuthState';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -68,10 +67,9 @@ class App extends React.Component {
         <AuthState />
         <NavBar />
         <Title />
-        <LogoutButton />
+        <Login />
         <Switch>
           <ProtectedRoute path={paths.register} component={Register} />
-          <Route path={paths.login} component={Login} />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route
             exact

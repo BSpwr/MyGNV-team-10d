@@ -21,22 +21,15 @@ class AuthButton extends React.Component {
       });
   };
 
+  handleLogout = () => {
+    this.logout();
+    this.props.history.push('/');
+  };
+
   render() {
     return this.global.isAuthenticated ? (
-      <p>
-        Welcome!
-        <Button
-          onClick={async () => {
-            this.logout();
-            this.props.history.push('/');
-          }}
-        >
-          Sign out
-        </Button>
-      </p>
-    ) : (
-      <p>You are not logged in.</p>
-    );
+      <Button onClick={this.handleLogout}>Log Out</Button>
+    ) : null;
   }
 }
 
