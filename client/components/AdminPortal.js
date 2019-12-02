@@ -5,12 +5,19 @@ import SearchBar from './SearchBar';
 class AdminPortal extends React.Component {
   render() {
     return (
-      <SearchBar
-        providers={this.props.providers}
-        updateFilterText={(junk) => {
-          return;
-        }}
-      />
+      <div>
+        <h>
+          <center>
+            <b>Admin Portal</b>
+          </center>
+        </h>
+        <SearchBar
+          providers={this.props.providers}
+          updateFilterText={(junk) => {
+            return;
+          }}
+        />
+      </div>
     );
   }
 }
