@@ -14,6 +14,7 @@ class ProviderList extends React.Component {
       .get(`/api/provider/subCategory/${this.props.category._id}`)
       .then((res) => {
         this.setState({ providers: res.data });
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -22,7 +23,6 @@ class ProviderList extends React.Component {
   render() {
     const providerList = this.state.providers.map((provider) => {
     return <ListGroup.Item
-     style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}
       key={provider._id}
       action href="/">
         <div style={{whiteSpace: "pre-wrap"}}>
@@ -30,9 +30,10 @@ class ProviderList extends React.Component {
           {provider.name}
           </h5>
           <p>
-            {provider.name}
+            {provider.services_provided}
             {"\n"}
-            {provider.name}
+            {"\n"}
+            {provider.address}
           </p>
         </div>
 
