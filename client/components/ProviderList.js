@@ -2,6 +2,7 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
+import ListGroup from 'react-bootstrap/ListGroup'
 
 class ProviderList extends React.Component {
   constructor(props) {
@@ -20,7 +21,23 @@ class ProviderList extends React.Component {
   }
   render() {
     const providerList = this.state.providers.map((provider) => {
-      return <p key={provider._id}>{provider.name}</p>;
+    return <ListGroup.Item
+     style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}
+      key={provider._id}
+      action href="/">
+        <div style={{whiteSpace: "pre-wrap"}}>
+          <h5>
+          {provider.name}
+          </h5>
+          <p>
+            {provider.name}
+            {"\n"}
+            {provider.name}
+          </p>
+        </div>
+
+        </ListGroup.Item>;
+      
     });
     return <React.Fragment>{providerList}</React.Fragment>;
   }
