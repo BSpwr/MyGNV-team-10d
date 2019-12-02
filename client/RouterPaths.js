@@ -20,6 +20,7 @@ const mainPath = '/';
 const searchPath = '/search';
 const login = '/login';
 const register = '/register';
+const individualProviderPath = '/provider';
 const adminPath = '/admin';
 const displayProvidersPath = '/providers';
 const topLevelCategoriesPath = '/categories';
@@ -30,6 +31,7 @@ const paths = {
   searchPath,
   login,
   register,
+  individualProviderPath,
   adminPath,
   displayProvidersPath,
   topLevelCategoriesPath,
