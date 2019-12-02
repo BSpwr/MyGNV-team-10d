@@ -26,15 +26,15 @@ class ProviderList extends React.Component {
       key={provider._id}
       action href="/">
         <div style={{whiteSpace: "pre-wrap"}}>
-          <h5>
+          <h5 style={{color:"black",fontWeight:"bold"}}>
           {provider.name}
           </h5>
           <p>
             {provider.services_provided}
             {"\n"}
             {"\n"}
-            {provider.address}
           </p>
+          {provider.addresses.map((addresses => <p style={{color:"black"}}>{addresses.line_1}{"\n"}{addresses.state}{" "}{addresses.zipcode}</p>))}
         </div>
 
         </ListGroup.Item>;
