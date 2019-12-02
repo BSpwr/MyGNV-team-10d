@@ -2,7 +2,10 @@ import React from 'reactn';
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
-import ListGroup from 'react-bootstrap/ListGroup'
+import { ListGroup, Container } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
+
+import paths from '../RouterPaths';
 
 class ProviderList extends React.Component {
   constructor(props) {
@@ -20,32 +23,46 @@ class ProviderList extends React.Component {
         console.log(err);
       });
   }
+
+  doRedirect = (providerId) => {
+    this.props.history.push(`${paths.individualProviderPath}/${providerId}`);
+  };
+
   render() {
     const providerList = this.state.providers.map((provider) => {
-    return <ListGroup.Item
-      key={provider._id}
-      action href="/">
-        <div style={{whiteSpace: "pre-wrap"}}>
-          <h5 style={{color:"black",fontWeight:"bold"}}>
-          {provider.name}
-          </h5>
-          <p>
-            {provider.services_provided}
-            {"\n"}
-            {"\n"}
-          </p>
-          {provider.addresses.map((addresses => <p style={{color:"black"}}>{addresses.line_1}{"\n"}{addresses.state}{" "}{addresses.zipcode}</p>))}
-        </div>
-
-        </ListGroup.Item>;
-      
+      return (
+        <ListGroup.Item
+          key={provider._id}
+          action
+          onClick={() => this.doRedirect(provider._id)}
+        >
+          <div style={{ whiteSpace: 'pre-wrap' }}>
+            <h5 style={{ color: 'black', fontWeight: 'bold' }}>
+              {provider.name}
+            </h5>
+            <p>
+              {provider.services_provided}
+              {'\n'}
+              {'\n'}
+            </p>
+            {provider.addresses.map((addresses) => (
+              <p key={`${provider._id}_address`} style={{ color: 'black' }}>
+                {addresses.line_1}
+                {'\n'}
+                {addresses.state} {addresses.zipcode}
+              </p>
+            ))}
+          </div>
+        </ListGroup.Item>
+      );
     });
-    return <React.Fragment>{providerList}</React.Fragment>;
+    return <Container>{providerList}</Container>;
   }
 }
 
 ProviderList.propTypes = {
   category: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default ProviderList;
+export default withRouter(ProviderList);
