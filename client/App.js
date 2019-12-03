@@ -11,6 +11,7 @@ import SearchBar from './components/SearchBar';
 import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
+import IndivProvider from './components/IndivProvider';
 
 import LogoutButton from './components/auth/LogoutButton';
 import AuthState from './components/auth/AuthState';
@@ -60,6 +61,7 @@ class App extends React.Component {
 
   updateSelected = (id) => {
     this.setState({ selectedProvider: id });
+    console.log(id);
   };
 
   render() {
@@ -94,6 +96,11 @@ class App extends React.Component {
                 updateSelected={this.updateSelected}
               />
             )}
+          />
+          <Route
+            exact
+            path={paths.individualPath + '/:id'}
+            render={(props) => <IndivProvider id={props.match.params.id} />}
           />
           <CategoryRouter categories={this.state.categories} />
         </Switch>

@@ -1,7 +1,8 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
-
+import IndivProvider from './IndivProvider'
+import { Link } from 'react-router-dom';
 class DisplayProviders extends React.Component {
   render() {
     const selectedProvider = this.props.selectedProvider
@@ -20,7 +21,9 @@ class DisplayProviders extends React.Component {
         if (provider._id === selectedProvider) {
           selectedStyle = { backgroundColor: 'orange' };
         }
+        
         return (
+        <>
           <tr
             key={provider._id}
             style={selectedStyle}
@@ -30,15 +33,25 @@ class DisplayProviders extends React.Component {
           >
             <td>{provider.name} </td>
           </tr>
+          <div>{providers.map((provider, id) => (
+              <Link to={'/provider/${id}'}>{provider}</Link>
+            ))
+          }
+          </div>
+          
+
+        </>
         );
       });
-
+      console.log(providers)
+    
     return (
       <React.Fragment>
-        <Table responsive='sm'>
-          <tbody>{providerList}</tbody>
-        </Table>
+          <tbody>
+            {providerList}
+          </tbody>
       </React.Fragment>
+
     );
   }
 }
