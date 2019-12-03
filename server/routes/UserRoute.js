@@ -8,6 +8,9 @@ router.route('/logout').post(userController.logout);
 
 router.route('/isLoggedIn').post(userController.isLoggedIn);
 
+router.route('/delete').post(userController.isAuthenticated, userController.unregister);
+
+router.rout('/changePassword').post(userController.isAuthenticated, userController.changepw);
 router
   .route('/register')
   .post(userController.isAuthenticated, userController.register);

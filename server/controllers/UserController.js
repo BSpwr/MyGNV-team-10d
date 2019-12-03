@@ -17,6 +17,26 @@ exports.register = (req, res) => {
     },
   );
 };
+exports.unregister = (req, target, res) => {
+  if(!req.isAuthenticated){
+    res.json({
+      success: false,
+      message: 'User is not logged in',
+    });
+  }
+  else{
+  User.deleteOne(req.body.email, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(400).send(err);
+    } else res.status(200).end();
+  });
+  }
+};
+
+exports.changepw = (req, newpw, res) => {
+  passport.changePassword(req.body.old, )
+}
 
 exports.login = (req, res) => {
   passport.authenticate('local', (err, user, info) => {
