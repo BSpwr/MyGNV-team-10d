@@ -39,14 +39,6 @@ class NavBar extends React.Component {
                 </NavLink>
                 <NavLink
                   exact
-                  to={paths.searchPath}
-                  className='navbar-link'
-                  activeClassName='navbar-active'
-                >
-                  Search
-                </NavLink>
-                <NavLink
-                  exact
                   to={paths.adminPath}
                   className='navbar-link'
                   activeClassName='navbar-active'

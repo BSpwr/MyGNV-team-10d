@@ -7,15 +7,16 @@ import CategoryRouter from './CategoryRouter';
 import ProtectedRoute from './ProtectedRoute';
 
 import NavBar from './components/NavBar';
-import SearchBar from './components/SearchBar';
 import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
 import IndivProvider from './components/IndivProvider';
+import search from './components/search'
 
 import AuthState from './components/auth/AuthState';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -73,16 +74,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path={paths.register} component={Register} />
           <Route exact path={paths.mainPath} component={MainPage} />
-          <Route
-            exact
-            path={paths.searchPath}
-            render={() => (
-              <SearchBar
-                providers={this.state.providers}
-                updateFilterText={this.updateFilterText}
-              />
-            )}
-          />
+          <Route exact path={paths.search} component={search} />
+          
           <Route
             exact
             path={paths.displayProvidersPath}
