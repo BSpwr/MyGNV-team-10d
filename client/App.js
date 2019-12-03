@@ -1,19 +1,27 @@
 import { hot } from 'react-hot-loader/root';
-import React from 'react';
+import React from 'reactn';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import paths from './RouterPaths';
 import CategoryRouter from './CategoryRouter';
+import ProtectedRoute from './ProtectedRoute';
 
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
 import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
-import IndivProvider from './components/IndivProvider'; 
+import IndivProvider from './components/IndivProvider';
+
+import LogoutButton from './components/auth/LogoutButton';
+import AuthState from './components/auth/AuthState';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
+    // this.global.auth.login('taco', 'cat');
     this.state = {
       providers: [],
       categories: [],
@@ -59,9 +67,13 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <AuthState />
         <NavBar />
         <Title />
+        <LogoutButton />
         <Switch>
+          <ProtectedRoute path={paths.register} component={Register} />
+          <Route path={paths.login} component={Login} />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route
             exact
@@ -87,9 +99,9 @@ class App extends React.Component {
           />
           <Route
             exact
-            path={paths.individualPath + '/:id'} 
-            render={(props) => (<IndivProvider id={props.match.params.id}/>)}
-          /> 
+            path={paths.individualPath + '/:id'}
+            render={(props) => <IndivProvider id={props.match.params.id} />}
+          />
           <CategoryRouter categories={this.state.categories} />
         </Switch>
       </React.Fragment>
