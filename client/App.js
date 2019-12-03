@@ -4,17 +4,16 @@ import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import paths from './RouterPaths';
 import CategoryRouter from './CategoryRouter';
-import ProtectedRoute from './ProtectedRoute';
 
 import NavBar from './components/NavBar';
 import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
+import AdminPortal from './components/AdminPortal';
 import IndivProvider from './components/IndivProvider';
 import search from './components/search'
 
 import AuthState from './components/auth/AuthState';
-import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 
 
@@ -70,9 +69,12 @@ class App extends React.Component {
         <AuthState />
         <NavBar />
         <Title />
-        <Login />
         <Switch>
           <Route exact path={paths.register} component={Register} />
+          <Route
+            path={paths.adminPath}
+            render={() => <AdminPortal providers={this.state.providers} />}
+          />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route exact path={paths.search} component={search} />
           

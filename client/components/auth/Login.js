@@ -1,5 +1,5 @@
 import React from 'reactn';
-import { Button, Form, Modal, Alert } from 'react-bootstrap';
+import { Button, Form, Modal, Alert, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -61,12 +61,18 @@ class Login extends React.Component {
   render() {
     const alreadyLoggedIn = (
       <React.Fragment>
-        Welcome {this.global.userEmail}! {'    '} <LogoutButton />
+        <span style={{ marginRight: '1em' }}>
+          Welcome {this.global.userEmail}!
+        </span>
+        <LogoutButton />
       </React.Fragment>
     );
 
     const needsLogin = (
       <React.Fragment>
+        <span style={{ marginRight: '1em' }}>
+          Welcome, please login to access the admin portal.
+        </span>
         <Button variant='primary' onClick={this.openModal}>
           Login
         </Button>
@@ -120,7 +126,14 @@ class Login extends React.Component {
       </React.Fragment>
     );
 
-    return this.global.isAuthenticated ? alreadyLoggedIn : needsLogin;
+    return (
+      <Row
+        className='justify-content-md-center'
+        style={{ margin: 'auto', marginBottom: '1em' }}
+      >
+        {this.global.isAuthenticated ? alreadyLoggedIn : needsLogin}
+      </Row>
+    );
   }
 }
 
