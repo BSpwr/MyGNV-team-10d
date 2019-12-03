@@ -11,11 +11,10 @@ import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
 import AdminPortal from './components/AdminPortal';
 import IndivProvider from './components/IndivProvider';
-import search from './components/search'
+import Search from './components/Search';
 
 import AuthState from './components/auth/AuthState';
 import Register from './components/auth/Register';
-
 
 class App extends React.Component {
   constructor(props) {
@@ -76,8 +75,8 @@ class App extends React.Component {
             render={() => <AdminPortal providers={this.state.providers} />}
           />
           <Route exact path={paths.mainPath} component={MainPage} />
-          <Route exact path={paths.search} component={search} />
-          
+          <Route exact path={paths.searchPath} component={Search} />
+
           <Route
             exact
             path={paths.displayProvidersPath}
