@@ -35,7 +35,9 @@ exports.unregister = (req, target, res) => {
 };
 
 exports.changepw = (req, res) => {
-  passport.setPassword(req.body.password, res);
+  //either of these SHOULD work
+  passport.changePassword(req.body.old, req.body.new, res);
+  //passport.setPassword(req.body.password, res);
 }
 
 exports.login = (req, res) => {
