@@ -1,7 +1,7 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Card } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 
 class IndivProvider extends React.Component {
   constructor(props) {
@@ -21,7 +21,17 @@ class IndivProvider extends React.Component {
       });
   }
 
+  addBreakToEnd = (string) => {
+    return (
+      <React.Fragment>
+        {string}
+        <br />
+      </React.Fragment>
+    );
+  };
+
   render() {
+    const br = <br></br>;
     console.log('Reached IndivProvider');
     console.log(this.props.id);
 
@@ -32,7 +42,7 @@ class IndivProvider extends React.Component {
         {this.state.provider == null ? (
           'Loading!'
         ) : (
-          <div>
+          <Container>
             <Card>
               <Card.Title>{currProv.name}</Card.Title>
               <Card.Body>
@@ -49,21 +59,30 @@ class IndivProvider extends React.Component {
                   {currProv.service_area !== '' ? currProv.serve_area : ''}
                 </Card.Text>
                 <Card.Text>
-                  Location{': '}
-                  {currProv.addresses[0].line_1}
-                  {currProv.addresses[0].line_2 !== undefined &&
+                  {currProv.addresses !== undefined &&
+                  currProv.addresses.length > 0
+                    ? this.addBreakToEnd('Location:')
+                    : ''}
+                  {currProv.addresses[0] !== undefined
+                    ? currProv.addresses[0].line_1
+                    : ''}
+                  {currProv.addresses[0] !== undefined &&
+                  currProv.addresses[0].line_2 !== undefined &&
                   currProv.addresses[0].line_2 !== ''
                     ? ', ' + currProv.addresses[0].line_2
                     : ''}
-                  {currProv.addresses[0].city !== undefined &&
+                  {currProv.addresses[0] !== undefined &&
+                  currProv.addresses[0].city !== undefined &&
                   currProv.addresses[0].city !== ''
                     ? ', ' + currProv.addresses[0].city
                     : ''}
-                  {currProv.addresses[0].state !== undefined &&
+                  {currProv.addresses[0] !== undefined &&
+                  currProv.addresses[0].state !== undefined &&
                   currProv.addresses[0].state !== ''
                     ? ', ' + currProv.addresses[0].state
                     : ''}
-                  {currProv.addresses[0].zipcode !== undefined &&
+                  {currProv.addresses[0] !== undefined &&
+                  currProv.addresses[0].zipcode !== undefined &&
                   currProv.addresses[0].zipcode !== ''
                     ? ', ' + currProv.addresses[0].zipcode
                     : ''}
@@ -94,36 +113,38 @@ class IndivProvider extends React.Component {
                     : ''}
                 </Card.Text>
                 <Card.Text>
-                  Hours{': '}
+                  {currProv.hours !== undefined
+                    ? this.addBreakToEnd('Hours:')
+                    : ''}
                   {currProv.hours.monday !== undefined &&
                   currProv.hours.monday !== ''
-                    ? '\nMonday: ' + currProv.hours.monday
+                    ? this.addBreakToEnd('Monday: ' + currProv.hours.monday)
                     : ''}
-                  {/* <br/> */}
                   {currProv.hours.tuesday !== undefined &&
                   currProv.hours.tuesday !== ''
-                    ? '\nTuesday: ' + currProv.hours.tuesday
+                    ? this.addBreakToEnd('Tuesday: ' + currProv.hours.tuesday)
                     : ''}
-                  {/* <br/> */}
                   {currProv.hours.wednesday !== undefined &&
                   currProv.hours.wednesday !== ''
-                    ? '\nWednesday: ' + currProv.hours.wednesday
+                    ? this.addBreakToEnd(
+                      'Wednesday: ' + currProv.hours.wednesday,
+                    )
                     : ''}
                   {currProv.hours.thursday !== undefined &&
                   currProv.hours.thursday !== ''
-                    ? '\nThursday: ' + currProv.hours.thursday
+                    ? this.addBreakToEnd('Thursday: ' + currProv.hours.thursday)
                     : ''}
                   {currProv.hours.friday !== undefined &&
                   currProv.hours.friday !== ''
-                    ? '\nFriday: ' + currProv.hours.friday
+                    ? this.addBreakToEnd('Friday: ' + currProv.hours.friday)
                     : ''}
                   {currProv.hours.saturday !== undefined &&
                   currProv.hours.saturday !== ''
-                    ? '\nSaturday: ' + currProv.hours.saturday
+                    ? this.addBreakToEnd('Saturday: ' + currProv.hours.saturday)
                     : ''}
                   {currProv.hours.sunday !== undefined &&
                   currProv.hours.sunday !== ''
-                    ? '\nSunday: ' + currProv.hours.sunday
+                    ? 'Sunday: ' + currProv.hours.sunday
                     : ''}
                 </Card.Text>
                 <Card.Text>
@@ -219,14 +240,13 @@ class IndivProvider extends React.Component {
                 <Card.Text>
                   {currProv.translation_available !== undefined &&
                   currProv.translation_available !== ''
-                    ? currProv.translation_available
+                    ? 'Translation available: ' + currProv.translation_available
                     : ''}
                 </Card.Text>
                 <Card.Text>
-                  {currProv.united_way_approval !== undefined
-                    ? currProv.united_way_approval
-                      ? ''
-                      : ''
+                  {currProv.united_way_approval !== undefined &&
+                  currProv.united_way_approval !== ''
+                    ? 'United Way approval: ' + currProv.united_way_approval
                     : ''}
                 </Card.Text>
                 <Card.Text>
@@ -238,7 +258,7 @@ class IndivProvider extends React.Component {
                 </Card.Text>
               </Card.Body>
             </Card>
-          </div>
+          </Container>
         )}
       </>
     );
