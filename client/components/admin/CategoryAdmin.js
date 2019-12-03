@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import CategoryEdit from './CategoryEdit';
 import SubCategoryEdit from './SubCategoryEdit';
+import CategoryDelete from './CategoryDelete';
 
 class CategoryAdmin extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class CategoryAdmin extends React.Component {
     this.state = { categories: [], filterText: '' };
   }
 
-  componentDidMount() {
+  getData = () => {
     axios
       .get('/api/category')
       .then((res) => {
@@ -22,7 +23,15 @@ class CategoryAdmin extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  componentDidMount() {
+    this.getData();
   }
+
+  handleRefreshData = () => {
+    this.getData();
+  };
 
   handleFilterChange = (event) => {
     this.setState({ filterText: event.target.value });
@@ -41,7 +50,15 @@ class CategoryAdmin extends React.Component {
       .map((category) => {
         return (
           <ListGroup.Item key={category._id}>
-            <CategoryEdit buttonName='Edit' id={category._id}></CategoryEdit>
+            <CategoryEdit
+              handleRefreshData={this.handleRefreshData}
+              buttonName='Edit'
+              id={category._id}
+            />{' '}
+            <CategoryDelete
+              handleRefreshData={this.handleRefreshData}
+              id={category._id}
+            />
             <h5
               style={{
                 color: 'black',
@@ -68,7 +85,15 @@ class CategoryAdmin extends React.Component {
       .map((category) => {
         return (
           <ListGroup.Item key={category._id}>
-            <CategoryEdit buttonName='Edit' id={category._id}></CategoryEdit>
+            <SubCategoryEdit
+              handleRefreshData={this.handleRefreshData}
+              buttonName='Edit'
+              id={category._id}
+            />{' '}
+            <CategoryDelete
+              handleRefreshData={this.handleRefreshData}
+              id={category._id}
+            />
             <h5
               style={{
                 color: 'black',
@@ -103,12 +128,14 @@ class CategoryAdmin extends React.Component {
           <Col sm='auto'>
             <Row style={{ marginBottom: '0.5em' }}>
               <CategoryEdit
+                handleRefreshData={this.handleRefreshData}
                 buttonName='Add Category'
                 style={{ margins: 'auto auto' }}
               />
             </Row>
             <Row>
               <SubCategoryEdit
+                handleRefreshData={this.handleRefreshData}
                 buttonName='Add SubCategory'
                 style={{ margins: 'auto auto' }}
               />

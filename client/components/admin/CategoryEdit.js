@@ -10,7 +10,7 @@ class CategoryEdit extends React.Component {
       category: {
         name: '',
         subcategory_of: [],
-        icon_name: '',
+        icon_name: 'null',
         is_lowest_level: false,
       },
       hadError: false,
@@ -46,10 +46,9 @@ class CategoryEdit extends React.Component {
   };
 
   handleIsLowestLevelChange = (event) => {
-    console.log(event.target.value);
     this.setState({
       category: Object.assign({}, this.state.category, {
-        is_lowest_level: event.target.value,
+        is_lowest_level: !this.state.category.is_lowest_level,
       }),
     });
   };
@@ -82,23 +81,29 @@ class CategoryEdit extends React.Component {
 
   submit = (event) => {
     event.preventDefault();
-    axios
-      .post('/api/user/login', {
-        email: this.state.email,
-        password: this.state.password,
-      })
-      .then((res) => {
-        this.setGlobal({
-          isAuthenticated: res.data.success,
-          userEmail: res.data.email,
-        });
-        if (res.data.success) {
+    if (this.props.id !== undefined && this.props.id !== '') {
+      axios
+        .post(`/api/category/${this.props.id}`, this.state.category)
+        .then((res) => {
           this.closeModal();
-        } else this.setState({ hadError: true });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          this.props.handleRefreshData();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({ hadError: true });
+        });
+    } else {
+      axios
+        .post(`/api/category/`, this.state.category)
+        .then((res) => {
+          this.closeModal();
+          this.props.handleRefreshData();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({ hadError: true });
+        });
+    }
   };
 
   render() {
@@ -109,7 +114,11 @@ class CategoryEdit extends React.Component {
         </Button>
         <Modal show={this.state.modalIsDisplayed} onHide={this.closeModal}>
           <Modal.Header closeButton>
-            <Modal.Title>{this.props.buttonName}</Modal.Title>
+            <Modal.Title>
+              {this.props.id !== undefined && this.props.id !== ''
+                ? `Edit ${this.state.category.name}`
+                : 'Add Category'}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {this.state.hadError ? (
@@ -167,21 +176,6 @@ class CategoryEdit extends React.Component {
                   label='Lowest Level Category'
                 />
               </Form.Group>
-              <Form.Label>
-                Subcategory Of: (Multi-selection possible)
-              </Form.Label>
-              <Form.Control
-                // value={this.state.category.subcategory_of}
-                onChange={this.handleSubcategoryOfChange}
-                as='select'
-                multiple
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -199,8 +193,9 @@ class CategoryEdit extends React.Component {
 }
 
 CategoryEdit.propTypes = {
-  history: PropTypes.instanceOf(Object).isRequired,
-  location: PropTypes.instanceOf(Object).isRequired,
+  id: PropTypes.string,
+  buttonName: PropTypes.string.isRequired,
+  handleRefreshData: PropTypes.func.isRequired,
 };
 
 export default CategoryEdit;

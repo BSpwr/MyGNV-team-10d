@@ -1,7 +1,9 @@
 import React from 'reactn';
-import { Button, Form, Modal, Alert, Row, Col } from 'react-bootstrap';
+import { Button, Form, Modal, Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+
+import SubCategoryFormElement from './SubCategoryFormElement';
 
 class SubCategoryEdit extends React.Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class SubCategoryEdit extends React.Component {
       category: {
         name: '',
         subcategory_of: [],
-        icon_name: '',
+        icon_name: 'null',
         is_lowest_level: false,
       },
       hadError: false,
@@ -40,34 +42,20 @@ class SubCategoryEdit extends React.Component {
     });
   };
 
-  handleIconNameChange = (event) => {
-    this.setState({
-      category: Object.assign({}, this.state.category, {
-        icon_name: event.target.value,
-      }),
-    });
-  };
-
   handleIsLowestLevelChange = (event) => {
-    console.log(event.target.value);
     this.setState({
       category: Object.assign({}, this.state.category, {
-        is_lowest_level: event.target.value,
+        is_lowest_level: !this.state.category.is_lowest_level,
       }),
     });
   };
 
-  handleSubcategoryOfChange = (event) => {
-    console.log(event.target.value);
+  handleSubcategoryOfChange = (subCategoryOf) => {
     this.setState({
       category: Object.assign({}, this.state.category, {
-        subcategory_of: event.target.value,
+        subcategory_of: subCategoryOf,
       }),
     });
-  };
-
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
   };
 
   openModal = () => {
@@ -85,23 +73,29 @@ class SubCategoryEdit extends React.Component {
 
   submit = (event) => {
     event.preventDefault();
-    axios
-      .post('/api/user/login', {
-        email: this.state.email,
-        password: this.state.password,
-      })
-      .then((res) => {
-        this.setGlobal({
-          isAuthenticated: res.data.success,
-          userEmail: res.data.email,
-        });
-        if (res.data.success) {
+    if (this.props.id !== undefined && this.props.id !== '') {
+      axios
+        .post(`/api/category/${this.props.id}`, this.state.category)
+        .then((res) => {
           this.closeModal();
-        } else this.setState({ hadError: true });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          this.props.handleRefreshData();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({ hadError: true });
+        });
+    } else {
+      axios
+        .post(`/api/category/`, this.state.category)
+        .then((res) => {
+          this.closeModal();
+          this.props.handleRefreshData();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.setState({ hadError: true });
+        });
+    }
   };
 
   render() {
@@ -112,7 +106,11 @@ class SubCategoryEdit extends React.Component {
         </Button>
         <Modal show={this.state.modalIsDisplayed} onHide={this.closeModal}>
           <Modal.Header closeButton>
-            <Modal.Title>{this.props.buttonName}</Modal.Title>
+            <Modal.Title>
+              {this.props.id !== undefined && this.props.id !== ''
+                ? `Edit ${this.state.category.name}`
+                : 'Add SubCategory'}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {this.state.hadError ? (
@@ -137,31 +135,6 @@ class SubCategoryEdit extends React.Component {
                 />
               </Form.Group>
 
-              <Row>
-                <Col>
-                  <Form.Group controlId='formIconName'>
-                    <Form.Label>Icon Name</Form.Label>
-                    <Form.Control
-                      value={this.state.category.icon_name}
-                      onChange={this.handleIconNameChange}
-                      placeholder='Fontawesome Icon Name'
-                    />
-                  </Form.Group>
-                </Col>
-                <Col sm='auto'>
-                  <Form.Label>Icon Preview</Form.Label>
-                  <i
-                    className={`fal fa-${
-                      this.state.category.icon_name
-                    } fa-${3}x`}
-                    style={{
-                      margin: 'auto',
-                      display: 'block',
-                    }}
-                  ></i>
-                </Col>
-              </Row>
-
               <Form.Group controlId='formLowestLevelCategoryCheckbox'>
                 <Form.Switch
                   checked={this.state.category.is_lowest_level}
@@ -170,21 +143,20 @@ class SubCategoryEdit extends React.Component {
                   label='Lowest Level Category'
                 />
               </Form.Group>
-              <Form.Label>
-                Subcategory Of: (Multi-selection possible)
-              </Form.Label>
-              <Form.Control
-                // value={this.state.category.subcategory_of}
-                onChange={this.handleSubcategoryOfChange}
-                as='select'
-                multiple
-              >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
+              <Form.Group>
+                <Form.Label>
+                  Subcategory Of: (Multi-selection possible)
+                </Form.Label>
+                <SubCategoryFormElement
+                  id={this.props.id}
+                  handleSubCategoryOfChange={this.handleSubcategoryOfChange}
+                  subCategoryOf={
+                    this.state.category.subcategory_of !== undefined
+                      ? this.state.category.subcategory_of
+                      : []
+                  }
+                />
+              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -202,8 +174,9 @@ class SubCategoryEdit extends React.Component {
 }
 
 SubCategoryEdit.propTypes = {
-  history: PropTypes.instanceOf(Object).isRequired,
-  location: PropTypes.instanceOf(Object).isRequired,
+  id: PropTypes.string,
+  buttonName: PropTypes.string.isRequired,
+  handleRefreshData: PropTypes.func.isRequired,
 };
 
 export default SubCategoryEdit;
