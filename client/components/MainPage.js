@@ -19,11 +19,13 @@ class MainPage extends React.Component {
               style={{ textAlign: 'center', paddingBottom: '1em' }}
             >
               <RedirectButton path={paths.topLevelCategoriesPath}>
-                Find a resource now.
+                Find a resource by category.
               </RedirectButton>
             </Col>
             <Col md='auto' style={{ textAlign: 'center' }}>
-              <RedirectButton path='/'>What can I qualify for?</RedirectButton>
+              <RedirectButton path={paths.searchPath}>
+                Search for a resource by name.
+              </RedirectButton>
             </Col>
           </Row>
         </Container>

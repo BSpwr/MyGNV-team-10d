@@ -21,12 +21,15 @@ const searchPath = '/search';
 const login = '/login';
 const register = '/register';
 const individualProviderPath = '/provider';
+
 const adminPath = '/admin';
+const categoriesAdminPath = `${adminPath}/categories`;
+const providersAdminPath = `${adminPath}/providers`;
+const usersAdminPath = `${adminPath}/users`;
+
 const displayProvidersPath = '/providers';
 const topLevelCategoriesPath = '/categories';
 const individualPath = '/provider';
-
-const categoryAdminPath = '/categoryadmin';
 
 /* eslint-disable no-unused-vars */
 const paths = {
@@ -35,13 +38,16 @@ const paths = {
   login,
   register,
   individualProviderPath,
+
   adminPath,
+  categoriesAdminPath,
+  providersAdminPath,
+  usersAdminPath,
+
   displayProvidersPath,
   topLevelCategoriesPath,
   individualPath,
   generateCategoryPath,
-
-  categoryAdminPath,
 };
 
 export default paths;
