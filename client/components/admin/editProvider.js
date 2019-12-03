@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 import Form from "react-jsonschema-form";
 import { withRouter } from 'react-router-dom';
 import { Container } from "react-bootstrap";
+import ProviderList from "../ProviderList";
 
 class editProvider extends React.Component{
     
       render() {
-        const providers = this.props.providers ? this.props.providers : {};
-        const providerList = providers.map((provider) => provider.name);
         const schema = {
             title: "Edit Provider",
             type: "object",
@@ -18,7 +17,7 @@ class editProvider extends React.Component{
             properties: 
             {
                 name: {
-                  type: "string", title: "Name", "enum": {providerList}
+                  title: "Name", type: "string"
                 },
                 services_provided: {
                     type: "string", title: "Services Provided"
@@ -145,7 +144,6 @@ class editProvider extends React.Component{
     const formData = {
 
     }
-
 
     const log = (type) => console.log.bind(console, type);
     
