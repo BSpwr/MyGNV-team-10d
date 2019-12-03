@@ -17,7 +17,6 @@ const generateCategoryPath = (category, endPath = '') => {
 };
 
 const mainPath = '/';
-const searchPath = '/search';
 const login = '/login';
 const register = '/register';
 const individualProviderPath = '/provider';
@@ -25,11 +24,11 @@ const adminPath = '/admin';
 const displayProvidersPath = '/providers';
 const topLevelCategoriesPath = '/categories';
 const individualPath = '/provider';
+const search = '/search';
 
 /* eslint-disable no-unused-vars */
 const paths = {
   mainPath,
-  searchPath,
   login,
   register,
   individualProviderPath,
@@ -38,6 +37,7 @@ const paths = {
   topLevelCategoriesPath,
   individualPath,
   generateCategoryPath,
+  search,
 };
 
 export default paths;
