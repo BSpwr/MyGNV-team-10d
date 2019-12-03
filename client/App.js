@@ -69,7 +69,7 @@ class App extends React.Component {
         <Title />
         <Login />
         <Switch>
-          <ProtectedRoute path={paths.register} component={Register} />
+          <Route exact path={paths.register} component={Register} />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route
             exact
