@@ -1,15 +1,16 @@
 import React from "reactn";
 import { render } from "react-dom";
-
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import Form from "react-jsonschema-form";
 import { withRouter } from 'react-router-dom';
 import { Container } from "react-bootstrap";
 
 class editProvider extends React.Component{
-    constructor(props) {
-        super(props);
-      }
+    
       render() {
+        const providers = this.props.providers ? this.props.providers : {};
+        const providerList = providers.map((provider) => provider.name);
         const schema = {
             title: "Edit Provider",
             type: "object",
@@ -17,7 +18,7 @@ class editProvider extends React.Component{
             properties: 
             {
                 name: {
-                  type: "string", title: "Name", "enum":['RTS',"Taxi"]
+                  type: "string", title: "Name", "enum": {providerList}
                 },
                 services_provided: {
                     type: "string", title: "Services Provided"
@@ -140,13 +141,22 @@ class editProvider extends React.Component{
                     type: "string", title: "Additional Info"
                 },
             }
-          };
+        };
+    const formData = {
 
-          const log = (type) => console.log.bind(console, type);
-          return <Container><Form schema={schema}
-          onSubmit={log("submitted")}
-          onError={log("errors")} /></Container>;
-      }
+    }
+
+
+    const log = (type) => console.log.bind(console, type);
+    
+    return <Container><Form schema={schema}
+    onSubmit={log("submitted")}
+    onError={log("errors")} /></Container>;
+    }
 }
+
+editProvider.propTypes = {
+    providers: PropTypes.instanceOf(Array).isRequired,
+  };
 
 export default editProvider;

@@ -17,7 +17,7 @@ import LogoutButton from './components/auth/LogoutButton';
 import AuthState from './components/auth/AuthState';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
-import editProvider from './components/auth/editProvider';
+import editProvider from './components/admin/editProvider';
 
 
 class App extends React.Component {
