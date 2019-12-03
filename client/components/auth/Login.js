@@ -1,18 +1,18 @@
 import React from 'reactn';
-import { Redirect } from 'react-router-dom';
-import { Button, Form, Container, Alert } from 'react-bootstrap';
+import { Button, Form, Modal, Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-
 import axios from 'axios';
+
+import LogoutButton from './LogoutButton';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToReferrer: false,
       email: '',
       password: '',
       invalidAttempt: false,
+      modalIsDisplayed: false,
     };
   }
 
@@ -22,6 +22,19 @@ class Login extends React.Component {
 
   handlePasswordChange = (event) => {
     this.setState({ password: event.target.value });
+  };
+
+  openModal = () => {
+    this.setState({
+      modalIsDisplayed: true,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalIsDisplayed: false,
+      invalidAttempt: false,
+    });
   };
 
   login = (event) => {
@@ -36,8 +49,9 @@ class Login extends React.Component {
           isAuthenticated: res.data.success,
           userEmail: res.data.email,
         });
-        if (res.data.success) this.setState({ redirectToReferrer: true });
-        else this.setState({ invalidAttempt: true });
+        if (res.data.success) {
+          this.closeModal();
+        } else this.setState({ invalidAttempt: true });
       })
       .catch((err) => {
         console.log(err);
@@ -45,56 +59,68 @@ class Login extends React.Component {
   };
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-
-    if (this.state.redirectToReferrer === true || this.global.isAuthenticated) {
-      return <Redirect to={from} />;
-    }
-
-    return (
-      <Container>
-        <h3>Login</h3>
-        {this.state.invalidAttempt ? (
-          <Alert
-            variant='danger'
-            style={{
-              marginTop: '1em',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}
-          >
-            Invalid email or password. Please try again.
-          </Alert>
-        ) : null}
-        <Form>
-          <Form.Group controlId='formBasicEmail'>
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              value={this.state.email}
-              onChange={this.handleEmailChange}
-              type='email'
-              placeholder='Enter email'
-            />
-            <Form.Text className='text-muted'>
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group controlId='formBasicPassword'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              value={this.state.password}
-              onChange={this.handlePasswordChange}
-              type='password'
-              placeholder='Password'
-            />
-          </Form.Group>
-          <Button onClick={this.login} variant='primary' type='submit'>
-            Log In
-          </Button>
-        </Form>
-      </Container>
+    const alreadyLoggedIn = (
+      <React.Fragment>
+        Welcome {this.global.userEmail}! {'    '} <LogoutButton />
+      </React.Fragment>
     );
+
+    const needsLogin = (
+      <React.Fragment>
+        <Button variant='primary' onClick={this.openModal}>
+          Login
+        </Button>
+        <Modal show={this.state.modalIsDisplayed} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Login</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {this.state.invalidAttempt ? (
+              <Alert
+                variant='danger'
+                style={{
+                  marginTop: '1em',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                }}
+              >
+                Invalid email or password. Please try again.
+              </Alert>
+            ) : null}
+            <Form>
+              <Form.Group controlId='formBasicEmail'>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
+                  type='Email'
+                  placeholder='Email'
+                />
+              </Form.Group>
+              <Form.Group controlId='formBasicPassword'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  value={this.state.password}
+                  onChange={this.handlePasswordChange}
+                  type='password'
+                  placeholder='Password'
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={this.closeModal}>
+              Close
+            </Button>
+            <Button onClick={this.login} variant='primary' type='submit'>
+              Log In
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </React.Fragment>
+    );
+
+    return this.global.isAuthenticated ? alreadyLoggedIn : needsLogin;
   }
 }
 
