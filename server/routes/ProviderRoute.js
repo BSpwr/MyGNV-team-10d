@@ -1,17 +1,18 @@
 const providerController = require('../controllers/ProviderController');
+const userController = require('../controllers/UserController');
 const express = require('express');
 const router = new express.Router();
 
 router
   .route('/')
   .get(providerController.list)
-  .post(providerController.create);
+  .post(userController.isAuthenticated, providerController.create);
 
 router
   .route('/:providerId')
   .get(providerController.read)
-  .put(providerController.update)
-  .delete(providerController.delete);
+  .put(userController.isAuthenticated, providerController.update)
+  .delete(userController.isAuthenticated, providerController.delete);
 
 router
   .route('/subCategory/:categoryId')

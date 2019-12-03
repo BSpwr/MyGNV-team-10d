@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import { Container, Row, Col } from 'react-bootstrap';
 import RedirectButton from './RedirectButton';
 import paths from '../RouterPaths';

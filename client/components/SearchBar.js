@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import PropTypes from 'prop-types';
 
 import { Container } from 'react-bootstrap';
@@ -8,14 +8,14 @@ import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
 
 class SearchBar extends React.Component {
   filterUpdate = (value) => {
+    console.log('thss');
     if (value !== undefined) {
       console.log(value);
       this.props.updateFilterText(value);
     }
   };
-
   render() {
-    const providers = this.props.providers ? this.props.providers : {};
+    const providers = this.props.providers;
     const isLoading = providers.length === 0 ? true : false;
     const providerList = providers.map((provider) => provider.name);
     return (

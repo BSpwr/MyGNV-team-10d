@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import paths from './RouterPaths';
