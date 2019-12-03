@@ -12,10 +12,13 @@ import MainPage from './components/MainPage';
 import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
 
+
 import LogoutButton from './components/auth/LogoutButton';
 import AuthState from './components/auth/AuthState';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import editProvider from './components/auth/editProvider';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -73,6 +76,7 @@ class App extends React.Component {
           <ProtectedRoute path={paths.register} component={Register} />
           <Route path={paths.login} component={Login} />
           <Route exact path={paths.mainPath} component={MainPage} />
+          <Route path={paths.editProvider} component={editProvider} />
           <Route
             exact
             path={paths.searchPath}
