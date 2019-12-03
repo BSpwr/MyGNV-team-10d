@@ -26,6 +26,8 @@ const displayProvidersPath = '/providers';
 const topLevelCategoriesPath = '/categories';
 const individualPath = '/provider';
 
+const categoryAdminPath = '/categoryadmin';
+
 /* eslint-disable no-unused-vars */
 const paths = {
   mainPath,
@@ -38,6 +40,8 @@ const paths = {
   topLevelCategoriesPath,
   individualPath,
   generateCategoryPath,
+
+  categoryAdminPath,
 };
 
 export default paths;

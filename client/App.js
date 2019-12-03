@@ -13,6 +13,8 @@ import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
 import IndivProvider from './components/IndivProvider';
 
+import CategoryAdmin from './components/admin/CategoryAdmin';
+
 import AuthState from './components/auth/AuthState';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -71,6 +73,11 @@ class App extends React.Component {
         <Title />
         <Login />
         <Switch>
+          <Route
+            exact
+            path={paths.categoryAdminPath}
+            component={CategoryAdmin}
+          />
           <Route exact path={paths.register} component={Register} />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route
