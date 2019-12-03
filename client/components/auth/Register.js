@@ -1,6 +1,5 @@
 import React from 'reactn';
-import { Redirect } from 'react-router-dom';
-import { Button, Form, Container } from 'react-bootstrap';
+import { Alert, Button, Form, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
@@ -9,10 +8,10 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectToReferrer: false,
       email: '',
       password: '',
-      wasSuccess: false,
+      hadError: false,
+      modalIsDisplayed: false,
     };
   }
 
@@ -32,51 +31,83 @@ class Register extends React.Component {
         password: this.state.password,
       })
       .then((res) => {
-        if (res.data.success) this.setState({ wasSuccess: true });
+        if (res.data.success) this.closeModal();
+        else this.setState({ hadError: true });
       })
       .catch((err) => {
         console.log(err);
+        this.setState({ hadError: true });
       });
   };
 
+  openModal = () => {
+    this.setState({
+      modalIsDisplayed: true,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      modalIsDisplayed: false,
+      hadError: false,
+    });
+  };
+
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-
-    if (this.state.wasSuccess === true) {
-      return <Redirect to={from} />;
-    }
-
     return (
-      <Container>
-        <h3>Register</h3>
-        <Form>
-          <Form.Group controlId='formBasicEmail'>
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              value={this.state.email}
-              onChange={this.handleEmailChange}
-              type='email'
-              placeholder='Enter email'
-            />
-            <Form.Text className='text-muted'>
-              We'll never share your email with anyone else.
-            </Form.Text>
-          </Form.Group>
+      <React.Fragment>
+        <Button variant='primary' onClick={this.openModal}>
+          Register
+        </Button>
+        <Modal show={this.state.modalIsDisplayed} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Register</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {this.state.hadError ? (
+              <Alert
+                variant='danger'
+                style={{
+                  marginTop: '1em',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                }}
+              >
+                An error has occurred. Please try again.
+              </Alert>
+            ) : null}
+            <Form>
+              <Form.Group controlId='formBasicEmail'>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
+                  type='email'
+                  placeholder='Email'
+                />
+              </Form.Group>
 
-          <Form.Group controlId='formBasicPassword'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              value={this.state.password}
-              onChange={this.handlePasswordChange}
-              type='password'
-              placeholder='Password'
-            />
-          </Form.Group>
-          <Button onClick={this.login} variant='primary' type='submit'>
-            Log In
-          </Button>
-        </Form>
-      </Container>
+              <Form.Group controlId='formBasicPassword'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  value={this.state.password}
+                  onChange={this.handlePasswordChange}
+                  type='password'
+                  placeholder='Password'
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={this.closeModal}>
+              Close
+            </Button>
+            <Button onClick={this.login} variant='primary' type='submit'>
+              Register
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </React.Fragment>
     );
   }
 }
