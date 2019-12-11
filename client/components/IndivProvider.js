@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Card, Container } from 'react-bootstrap';
 
+// This component renders the individual provider view,
+// with more detail
+// Checks fields for validity to prevent crashes if undefined
+
 class IndivProvider extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +14,8 @@ class IndivProvider extends React.Component {
       provider: null,
     };
   }
+
+  // Get provider from backend based on id passed in
   componentDidMount() {
     axios
       .get(`/api/provider/${this.props.id}`)
@@ -47,7 +53,6 @@ class IndivProvider extends React.Component {
               body
               inverse
               style={{ backgroundColor: '#cacae0', borderColor: '#333' }}
-              body
               outline
               color='#000'
             >

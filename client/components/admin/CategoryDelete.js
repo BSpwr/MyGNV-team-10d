@@ -1,7 +1,9 @@
 import React from 'reactn';
-import { Button, Form, Modal, Alert, Row, Col } from 'react-bootstrap';
+import { Button, Modal, Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+
+// Category delete modal with delete confirmation
 
 class SubCategoryEdit extends React.Component {
   constructor(props) {

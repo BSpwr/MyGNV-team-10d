@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import RedirectButton from './RedirectButton';
 import paths from '../RouterPaths';
 
+// Main page component with two buttons for search by category and by name
+
 class MainPage extends React.Component {
   render() {
     return (

@@ -5,6 +5,8 @@ import './NavBar.scss';
 import homeIcon from '../images/myGNV_img_black.png';
 import paths from '../RouterPaths';
 
+// Bootstrap Navbar, links to home and admin page
+
 class NavBar extends React.Component {
   render() {
     return (

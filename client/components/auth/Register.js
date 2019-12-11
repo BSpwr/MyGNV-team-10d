@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
+// Modal style register component
+// Communicates with backend, see backend comments for api docs
+
 class Register extends React.Component {
   constructor(props) {
     super(props);

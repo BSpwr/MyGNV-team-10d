@@ -12,6 +12,8 @@ class ProviderList extends React.Component {
     super(props);
     this.state = { providers: [] };
   }
+
+  // Gets list of providers corresponding with subcategory._id
   componentDidMount() {
     axios
       .get(`/api/provider/subCategory/${this.props.category._id}`)
@@ -24,10 +26,13 @@ class ProviderList extends React.Component {
       });
   }
 
+  // On click, redirects to individual provider view of clicked provider
   doRedirect = (providerId) => {
     this.props.history.push(`${paths.individualProviderPath}/${providerId}`);
   };
 
+  // Renders a list of provider in subcategory, provides summary and
+  // address quick view
   render() {
     const providerList = this.state.providers.map((provider) => {
       return (

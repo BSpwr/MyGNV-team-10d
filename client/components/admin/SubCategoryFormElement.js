@@ -3,6 +3,9 @@ import { ListGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+// Custom multiselect form element
+// used to change category -> parent category links
+
 class SubCategoryFormElement extends React.Component {
   constructor(props) {
     super(props);
@@ -13,8 +16,6 @@ class SubCategoryFormElement extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.subCategoryOf);
-    console.log([...this.props.subCategoryOf]);
     this.setState({ currentSubCategoryOf: [...this.props.subCategoryOf] });
 
     axios

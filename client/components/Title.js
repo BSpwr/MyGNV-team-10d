@@ -2,6 +2,8 @@ import React from 'reactn';
 import { Alert } from 'react-bootstrap';
 import { Container, Row, Col } from 'react-bootstrap';
 
+// Title component, displays blue bar with icon and text
+
 class Homepage extends React.Component {
   render() {
     return (

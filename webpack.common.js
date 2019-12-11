@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js',
+    filename: '[hash]-[name].js',
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -18,16 +18,6 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-        exclude: /node_modules/,
-        options: {
-          emitWarning: true,
-          configFile: './.eslintrc.json',
-        },
-      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

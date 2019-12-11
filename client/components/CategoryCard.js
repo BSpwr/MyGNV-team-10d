@@ -1,10 +1,11 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-
 import { Button } from 'react-bootstrap';
-
 import './CategoryCard.scss';
+
+// Renders tile for top level category
+// uses fontawesome light for the icon
 
 class CategoryCard extends React.Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class CategoryCard extends React.Component {
     this.props.history.push(this.props.path);
   };
 
+  // Change color on hover
+
   startHover = () => {
     this.setState({ className: 'cat-card-border-active' });
   };
@@ -24,6 +27,8 @@ class CategoryCard extends React.Component {
   endHover = () => {
     this.setState({ className: 'cat-card-border' });
   };
+
+  // Renders the tile button for a top level category
 
   render() {
     return (

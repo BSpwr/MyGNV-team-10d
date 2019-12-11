@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import SubCategoryCard from './SubCategoryCard';
 
-class Categories extends React.Component {
+// Lists all subcategories as clickable
+// subcategory cards
+
+class SubCategories extends React.Component {
   render() {
     const containerStyle = {
       maxWidth: '30em',
@@ -58,8 +61,8 @@ class Categories extends React.Component {
   }
 }
 
-Categories.propTypes = {
+SubCategories.propTypes = {
   categoryList: PropTypes.instanceOf(Array).isRequired,
 };
 
-export default Categories;
+export default SubCategories;

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'react-bootstrap';
 import CategoryCard from './CategoryCard';
 
+// Creates the top level category view as a 3col grid,
+// with each top level category being an instance of category card
+
 class Categories extends React.Component {
   render() {
     console.log(this.props.categoryList);
@@ -24,6 +27,7 @@ class Categories extends React.Component {
 
     const categoryRowList = [];
     let categoryCol = <React.Fragment></React.Fragment>;
+    // Have the grid be max 3col wide
     this.props.categoryList.forEach((category, i) => {
       if (i % 3 == 0 && i != 0) {
         categoryRowList.push(categoryCol);

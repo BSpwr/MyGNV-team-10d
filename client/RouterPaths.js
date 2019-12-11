@@ -1,3 +1,5 @@
+// Holds router variables and generates router paths from category names
+
 const cleanPath = (path) => {
   return path.replace(/[^a-zA-Z0-9-_]/g, '');
 };
@@ -26,7 +28,6 @@ const categoriesAdminPath = `${adminPath}/categories`;
 const providersAdminPath = `${adminPath}/providers`;
 const usersAdminPath = `${adminPath}/users`;
 
-const displayProvidersPath = '/providers';
 const topLevelCategoriesPath = '/categories';
 const individualPath = '/provider';
 const searchPath = '/search';
@@ -43,7 +44,6 @@ const paths = {
   providersAdminPath,
   usersAdminPath,
 
-  displayProvidersPath,
   topLevelCategoriesPath,
   individualPath,
   generateCategoryPath,

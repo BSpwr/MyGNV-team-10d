@@ -2,8 +2,10 @@ import React from 'reactn';
 import { Button, Form, Modal, Alert, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
 import LogoutButton from './LogoutButton';
+
+// Modal style login component
+// Communicates with backend, see backend comments for api docs
 
 class Login extends React.Component {
   constructor(props) {

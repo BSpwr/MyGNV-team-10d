@@ -4,6 +4,10 @@ import { Button } from 'react-bootstrap';
 
 import { withRouter } from 'react-router-dom';
 
+// A bootstrap button that redirects on click
+// Using the html5 history API and react router
+// this allows back, forward buttons to work in the browser
+
 class RedirectButton extends React.Component {
   doRedirect = () => {
     this.props.history.push(this.props.path);
