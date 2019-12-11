@@ -3,6 +3,9 @@ import { Button, Form, Modal, Alert, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+// Category edit modal form, uses custom multiselect form element
+// Used for category admin portal
+
 class CategoryEdit extends React.Component {
   constructor(props) {
     super(props);

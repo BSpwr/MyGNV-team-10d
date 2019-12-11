@@ -7,6 +7,12 @@ import Categories from './components/Categories';
 import SubCategories from './components/SubCategories';
 import ProviderList from './components/ProviderList';
 
+// Adds routes for categories and subcategories and providerlist
+// If category is_lowest_level is true then will render providerList
+// Else will render subcategory list
+// If is top level categories path then will render top level
+// categories instead
+
 class CategoryRouter extends React.Component {
   render() {
     const subCategories = this.props.categories.map((subCategory) => {
@@ -27,7 +33,7 @@ class CategoryRouter extends React.Component {
                 return parent._id == subCategory._id;
               }).length
             );
-          },
+          }
         );
         return (
           <Route

@@ -3,6 +3,9 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import paths from './RouterPaths';
 
+// A protected route component, not currently used since
+// modals are used for the admin portal, but can be useful
+
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const [global] = useGlobal();
   return (

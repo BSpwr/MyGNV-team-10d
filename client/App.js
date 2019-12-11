@@ -7,7 +7,6 @@ import CategoryRouter from './CategoryRouter';
 
 import NavBar from './components/NavBar';
 import MainPage from './components/MainPage';
-import DisplayProviders from './components/DisplayProviders';
 import Title from './components/Title';
 import AdminPortal from './components/AdminPortal';
 import IndivProvider from './components/IndivProvider';
@@ -27,6 +26,9 @@ class App extends React.Component {
       selectedProvider: '',
     };
   }
+
+  // On start populate all providers and categories
+  // Generate a path for each category based on category and parent name
 
   componentDidMount() {
     axios
@@ -62,6 +64,9 @@ class App extends React.Component {
     console.log(id);
   };
 
+  // Handles routing admin portal, main page, search, category & provider list
+  // and individual provider
+
   render() {
     return (
       <React.Fragment>
@@ -76,19 +81,6 @@ class App extends React.Component {
           />
           <Route exact path={paths.mainPath} component={MainPage} />
           <Route exact path={paths.searchPath} component={Search} />
-
-          <Route
-            exact
-            path={paths.displayProvidersPath}
-            render={() => (
-              <DisplayProviders
-                providers={this.state.providers}
-                filterText={this.state.filterText}
-                selectedProvider={this.state.selectedProvider}
-                updateSelected={this.updateSelected}
-              />
-            )}
-          />
           <Route
             exact
             path={paths.individualPath + '/:id'}

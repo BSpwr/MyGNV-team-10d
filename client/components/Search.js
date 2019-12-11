@@ -1,17 +1,21 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
-
 import axios from 'axios';
 import { ListGroup, Container, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-
 import paths from '../RouterPaths';
+
+// Search component for all providers,
+// When provider is clicked redirects to
+// individual provider view
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = { providers: [], filterText: '' };
   }
+
+  // Loads in all providers for filtering through
   componentDidMount() {
     axios
       .get(`/api/provider`)

@@ -5,6 +5,9 @@ import { Button } from 'react-bootstrap';
 
 import axios from 'axios';
 
+// Logout button that communicates with backend to end session
+// Will redirect to app home page
+
 class AuthButton extends React.Component {
   constructor(props) {
     super(props);

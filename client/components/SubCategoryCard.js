@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import RedirectButton from './RedirectButton';
 
+// Redirect component for subcategory
+
 class SubCategoryCard extends React.Component {
   constructor(props) {
     super(props);

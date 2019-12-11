@@ -2,8 +2,10 @@ import React from 'reactn';
 import { Button, Form, Modal, Alert } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
 import SubCategoryFormElement from './SubCategoryFormElement';
+
+// Subcategory edit modal form, uses custom multiselect form element
+// Used for category admin portal
 
 class SubCategoryEdit extends React.Component {
   constructor(props) {

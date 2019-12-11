@@ -1,6 +1,11 @@
 import React from 'reactn';
 import axios from 'axios';
 
+// Populates this.global.isAuthenticated with true or false
+// and this.global.userEmail with authenticated user's email
+
+// Used in App.js, runs on first render to check if session is active
+
 class AuthState extends React.Component {
   constructor(props) {
     super(props);

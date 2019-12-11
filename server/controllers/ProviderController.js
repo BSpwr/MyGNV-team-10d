@@ -66,7 +66,7 @@ exports.listSubCategory = (req, res) => {
   res.json(req.inSubcategory);
 };
 
-// Middleware to get a provider from database by ID
+// Middleware to get a provider from database by ID, save in req.provider
 exports.providerById = (req, res, next, id) => {
   Provider.findById(id)
     .populate('categories')
@@ -81,7 +81,7 @@ exports.providerById = (req, res, next, id) => {
     });
 };
 
-// Middleware to get providers in subcategory
+// Middleware to get providers in subcategory, save in req.inSubcategory
 exports.getSubCategory = (req, res, next, id) => {
   Provider.find({ categories: id })
     .populate('categories')

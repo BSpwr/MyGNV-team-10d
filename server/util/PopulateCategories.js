@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const Category = require('../models/CategorySchema');
 const config = require('../config/config');
 
+// This script populates categories for mongoDB, and links them initially
+// Category names must match names in JSON (./data.json)
+// if used for PopulateProviders!
+
+// BY DEFAULT THIS SCRIPT WILL DELETE ALL CATEGORIES AND
+// REPOPULATE MONGODB. DANGER, WARNING, CAUTION!!
+// BE ABSOLUTELY SURE THAT YOU WANT TO DO THIS!!
+
 mongoose.connect(config.db.uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

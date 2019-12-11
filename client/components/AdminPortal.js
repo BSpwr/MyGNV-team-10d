@@ -10,6 +10,9 @@ import CategoryAdmin from './admin/CategoryAdmin';
 
 import paths from '../RouterPaths';
 
+// Either prompts user to login or displays logout button
+// And buttons for the different admin portal sections
+
 class AdminPortal extends React.Component {
   constructor(props) {
     super(props);

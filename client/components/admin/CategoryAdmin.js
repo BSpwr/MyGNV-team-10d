@@ -6,6 +6,10 @@ import CategoryEdit from './CategoryEdit';
 import SubCategoryEdit from './SubCategoryEdit';
 import CategoryDelete from './CategoryDelete';
 
+// This component creates an admin view
+// With filtering for adding, modifying, and
+// deleting categories and subcategories
+
 class CategoryAdmin extends React.Component {
   constructor(props) {
     super(props);
@@ -108,6 +112,7 @@ class CategoryAdmin extends React.Component {
         );
       });
 
+    // Center the two columns of top level categories and subcategories
     return (
       <Container>
         <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -170,5 +175,3 @@ class CategoryAdmin extends React.Component {
 }
 
 export default CategoryAdmin;
-
-// list all top level categories

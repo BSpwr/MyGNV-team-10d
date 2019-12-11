@@ -6,6 +6,8 @@ import './custom.scss';
 import './index.scss';
 import App from './App';
 
+// Normalize CSS and start React App
+
 ReactDOM.render(
   <BrowserRouter>
     <App />
