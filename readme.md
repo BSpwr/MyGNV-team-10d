@@ -28,45 +28,45 @@ Instructions to deploy on Heroku are as follows:
 
 ## Api Documentation
 
-/api/category  
-GET will return JSON of all categories  
-POST will create category if user authenticated  
+`/api/category`  
+`GET` will return JSON of all categories  
+`POST` will create category if user authenticated  
 
-/api/category/topLevelCategory  
-GET will return JSON of all top level categories  
+`/api/category/topLevelCategory`  
+`GET` will return JSON of all top level categories  
 
-/api/category/subCategory/:categoryId  
-GET will return list of subCategories under parent category's id  
+`/api/category/subCategory/:categoryId`  
+`GET` will return list of subCategories under parent category's id  
 
-/api/category/:categoryId  
-GET will return category  
-POST will update category if authenticated  
-DELETE will delete category if authenticated  
+`/api/category/:categoryId`  
+`GET` will return category  
+`POST` will update category if authenticated  
+`DELETE` will delete category if authenticated  
 
-/api/provider  
-GET will return JSON of all providers  
-POST will create provider if user authenticated  
+`/api/provider`  
+`GET` will return JSON of all providers  
+`POST` will create provider if user authenticated  
 
-/api/provider/:providerId  
-GET will return provider  
-POST will update provider if authenticated  
-DELETE will delete provider if authenticated  
+`/api/provider/:providerId`  
+`GET` will return provider  
+`POST` will update provider if authenticated  
+`DELETE` will delete provider if authenticated  
 
-/api/provider/subCategory/:categoryId  
-GET will return list of providers under subcategory id  
+`/api/provider/subCategory/:categoryId`  
+`GET` will return list of providers under subcategory id  
 
-/api/user/login  
-POST with correct email and password field  
+`/api/user/login`  
+`POST` with correct email and password field  
 will login and start session  
 
-/api/user/logout  
-POST will end session if there in an active session  
+`/api/user/logout`  
+`POST` will end session if there in an active session 
 
-/api/user/isLoggedIn  
-POST will return status: true in JSON if logged in  
+`/api/user/isLoggedIn`  
+`POST` will return status: true in JSON if logged in  
 
-/api/user/register  
-POST with email and password field  
+`/api/user/register`  
+`POST` with email and password field  
 Will create new user if request is from authenticated user  
 
 ## Linting your Code
