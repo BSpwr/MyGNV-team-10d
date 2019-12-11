@@ -5,8 +5,14 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const history = require('connect-history-api-fallback');
 
-const config = require('./config');
-const port = config.port || 8080;
+// Populate process.env, for development
+require('dotenv').config();
+
+const dbUri = process.env.DB_URI ? process.env.DB_URI : '';
+const port = process.env.PORT ? process.env.PORT : 8080;
+const sessionSecret = process.env.SESSION_SECRET
+  ? process.env.SESSION_SECRET
+  : 'lol cats';
 
 const developmentMode = 'development';
 const devServerEnabled =
@@ -27,7 +33,7 @@ const userRouter = require('../routes/UserRoute');
 
 module.exports.start = () => {
   // Connect to database
-  mongoose.connect(config.db.uri, {
+  mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -41,10 +47,9 @@ module.exports.start = () => {
   // Parse application/json
   app.use(bodyParser.json());
 
-  // TODO: MAKE SECURE SECRET, PREFERABLY ENV VAR
   app.use(
     session({
-      secret: 'lol cats',
+      secret: sessionSecret,
       resave: false,
       saveUninitialized: false,
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
