@@ -11,7 +11,7 @@ router
   .get(providerController.list)
   .post(userController.isAuthenticated, providerController.create);
 
-// Path is /api/provider/:id
+// Path is /api/provider/:providerId
 // GET will return provider
 // POST will update provider if authenticated
 // DELETE will delete provider if authenticated
@@ -21,7 +21,7 @@ router
   .put(userController.isAuthenticated, providerController.update)
   .delete(userController.isAuthenticated, providerController.delete);
 
-// Path is /api/provider/subCategory/:id
+// Path is /api/provider/subCategory/:categoryId
 // GET will return list of providers under subcategory id.
 router
   .route('/subCategory/:categoryId')

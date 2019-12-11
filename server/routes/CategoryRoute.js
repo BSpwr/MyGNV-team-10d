@@ -16,13 +16,13 @@ router
 // GET will return JSON of all top level categories
 router.route('/topLevelCategory').get(categoryController.listTopLevel);
 
-// Path is /api/category/subCategory/:id
-// GET will return list of subCategories under parent category's id.
+// Path is /api/category/subCategory/:categoryId
+// GET will return list of subCategories under parent category's id
 router
   .route('/subCategory/:categoryId')
   .get(categoryController.listSubCategory);
 
-// Path is /api/category/:id
+// Path is /api/category/:categoryId
 // GET will return category
 // POST will update category if authenticated
 // DELETE will delete category if authenticated
