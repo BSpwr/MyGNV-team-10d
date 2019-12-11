@@ -33,7 +33,8 @@
     "react-bootstrap-typeahead": "^3.4.7",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
-    "reactn": "^2.2.4"
+    "reactn": "^2.2.4",
+    "nodemon": "^1.19.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -53,7 +54,6 @@
     "html-webpack-plugin": "^3.2.0",
     "morgan": "^1.9.1",
     "node-sass": "^4.13.0",
-    "nodemon": "^1.19.4",
     "react-hot-loader": "^4.12.15",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
