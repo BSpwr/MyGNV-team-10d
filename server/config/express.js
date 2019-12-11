@@ -1,9 +1,18 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const morgan = require('morgan');
 const bodyParser = require('body-parser');
-const history = require('connect-history-api-fallback');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('./passport');
+
+const providerRouter = require('../routes/ProviderRoute');
+const categoryRouter = require('../routes/CategoryRoute');
+const userRouter = require('../routes/UserRoute');
+
+const developmentMode = 'development';
+const devServerEnabled =
+  process.argv.length >= 2 && process.argv[2] === developmentMode;
 
 // Populate process.env, for development
 require('dotenv').config();
@@ -13,23 +22,6 @@ const port = process.env.PORT ? process.env.PORT : 8080;
 const sessionSecret = process.env.SESSION_SECRET
   ? process.env.SESSION_SECRET
   : 'lol cats';
-
-const developmentMode = 'development';
-const devServerEnabled =
-  process.argv.length >= 2 && process.argv[2] === developmentMode;
-
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackDevConfig = require('../../webpack.dev');
-
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-const passport = require('./passport');
-
-const providerRouter = require('../routes/ProviderRoute');
-const categoryRouter = require('../routes/CategoryRoute');
-const userRouter = require('../routes/UserRoute');
 
 module.exports.start = () => {
   // Connect to database
@@ -66,6 +58,14 @@ module.exports.start = () => {
   // Register all routes before registering webpack middleware
 
   if (devServerEnabled) {
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const webpackDevConfig = require('../../webpack.dev');
+
+    const history = require('connect-history-api-fallback');
+    const morgan = require('morgan');
+
     // Handles any requests that don't match the ones above
     app.use(history());
 
