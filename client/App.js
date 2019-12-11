@@ -13,7 +13,6 @@ import IndivProvider from './components/IndivProvider';
 import Search from './components/Search';
 
 import AuthState from './components/auth/AuthState';
-import Register from './components/auth/Register';
 
 class App extends React.Component {
   constructor(props) {
@@ -74,7 +73,6 @@ class App extends React.Component {
         <NavBar />
         <Title />
         <Switch>
-          <Route exact path={paths.register} component={Register} />
           <Route
             path={paths.adminPath}
             render={() => <AdminPortal providers={this.state.providers} />}
