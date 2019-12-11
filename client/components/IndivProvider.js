@@ -43,19 +43,28 @@ class IndivProvider extends React.Component {
           'Loading!'
         ) : (
           <Container>
-            <Card body inverse style={{ backgroundColor: '#cacae0', borderColor: '#333' }} body outline color="#000">
-              <Card.Title className="text-center p-3" >{currProv.name}</Card.Title>
+            <Card
+              body
+              inverse
+              style={{ backgroundColor: '#cacae0', borderColor: '#333' }}
+              body
+              outline
+              color='#000'
+            >
+              <Card.Title className='text-center p-3'>
+                {currProv.name}
+              </Card.Title>
               <Card.Body>
                 <Card.Subtitle className='text-muted'>
                   {currProv.services_provided !== '' &&
                   currProv.services_provided !== undefined
-                    ? currProv.services_provided 
+                    ? currProv.services_provided
                     : 'Services not provided'}
                 </Card.Subtitle>
                 <br></br>
                 <Card.Text>
                   {currProv.eligibility_criteria !== ''
-                    ? '\n\n'+currProv.eligibility_criteria
+                    ? '\n\n' + currProv.eligibility_criteria
                     : ''}
                   {currProv.service_area !== '' ? currProv.serve_area : ''}
                 </Card.Text>
@@ -90,8 +99,12 @@ class IndivProvider extends React.Component {
                 </Card.Text>
                 <Card.Text>
                   Contact Information{': '}
-                  {currProv.phone_numbers[0].number}
-                  {currProv.phone_numbers[0].contact !== undefined &&
+                  {currProv.phone_numbers && currProv.phone_numbers.length > 0
+                    ? currProv.phone_numbers[0].number
+                    : null}
+                  {currProv.phone_numbers &&
+                  currProv.phone_numbers.length > 0 &&
+                  currProv.phone_numbers[0].contact !== undefined &&
                   currProv.phone_numbers[0].contact !== ''
                     ? ', ' + currProv.phone_numbers[0].contact
                     : ''}
@@ -150,9 +163,9 @@ class IndivProvider extends React.Component {
                 </Card.Text>
                 <Card.Text>
                   {currProv.walk_ins !== undefined && currProv.walk_ins !== ''
-                    ? (currProv.walk_ins === 'Y' || currProv.walk_ins === 'y'
-                        ? 'Walk ins welcomed.'
-                        : '')
+                    ? currProv.walk_ins === 'Y' || currProv.walk_ins === 'y'
+                      ? 'Walk ins welcomed.'
+                      : ''
                     : ''}
                 </Card.Text>
                 <Card.Text>
@@ -247,11 +260,11 @@ class IndivProvider extends React.Component {
                     : ''}
                 </Card.Text>
                 <Card.Text>
-                  {currProv.united_way_approval !== undefined 
-                  ? (currProv.united_way_approval 
-                    ? 'United Way approved.'
-                    : '')
-                  : ''}
+                  {currProv.united_way_approval !== undefined
+                    ? currProv.united_way_approval
+                      ? 'United Way approved.'
+                      : ''
+                    : ''}
                 </Card.Text>
                 <Card.Text>
                   {currProv.additional_information !== undefined &&

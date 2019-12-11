@@ -25,7 +25,7 @@ const providerRouter = require('../routes/ProviderRoute');
 const categoryRouter = require('../routes/CategoryRoute');
 const userRouter = require('../routes/UserRoute');
 
-module.exports.start = function() {
+module.exports.start = () => {
   // Connect to database
   mongoose.connect(config.db.uri, {
     useNewUrlParser: true,
@@ -87,7 +87,7 @@ module.exports.start = function() {
     });
   }
 
-  app.listen(port, function() {
+  app.listen(port, () => {
     console.log('App listening on port: ' + port);
   });
 

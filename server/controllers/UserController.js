@@ -1,6 +1,7 @@
 const passport = require('../config/passport');
 const User = require('../models/UserSchema');
 
+// Register a new user, using email and password fields from body
 exports.register = (req, res) => {
   User.register(
     new User({ email: req.body.email }),
@@ -18,6 +19,7 @@ exports.register = (req, res) => {
   );
 };
 
+// Login a user, makes a session on success
 exports.login = (req, res) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
@@ -43,11 +45,13 @@ exports.login = (req, res) => {
   })(req, res);
 };
 
+// Logout a user, ending session
 exports.logout = (req, res) => {
   req.logout();
   res.json({ success: true, message: 'Logout successful' });
 };
 
+// Checks if user is currently logged in, ie. if they have a session started
 exports.isLoggedIn = (req, res) => {
   if (req.isAuthenticated()) {
     res.json({
@@ -61,6 +65,7 @@ exports.isLoggedIn = (req, res) => {
 };
 
 // Middleware for checking if authenticated
+// Used to protect routes from unauthorized access
 exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();

@@ -1,3 +1,5 @@
+// Webpack dev config, uses common config as base
+
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common');

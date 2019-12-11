@@ -1,3 +1,5 @@
+// Passport authentication setup with schema.
+
 const passport = require('passport');
 const User = require('../models/UserSchema');
 

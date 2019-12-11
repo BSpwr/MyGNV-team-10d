@@ -90,7 +90,7 @@ exports.delete = (req, res) => {
   });
 };
 
-// Middleware to get a category from database by ID
+// Middleware to get a category from database by ID, save in req.category
 exports.categoryById = (req, res, next, id) => {
   Category.findById(id)
     .populate('subcategory_of')

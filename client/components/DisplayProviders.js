@@ -1,7 +1,7 @@
 import React from 'reactn';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
-import IndivProvider from './IndivProvider'
+import IndivProvider from './IndivProvider';
 import { Link } from 'react-router-dom';
 class DisplayProviders extends React.Component {
   render() {
@@ -21,35 +21,35 @@ class DisplayProviders extends React.Component {
         if (provider._id === selectedProvider) {
           selectedStyle = { backgroundColor: 'orange' };
         }
-        
+
         return (
-        <>
-          <tr
-            key={provider._id}
-            style={selectedStyle}
-            onClick={() => {
-              this.props.updateSelected(provider._id);
-            }}
-          >
-            <td>{provider.name} </td>
-          </tr>
-          <div>{providers.map((provider, id) => (
+          <>
+            <tr
+              key={provider._id}
+              style={selectedStyle}
+              onClick={() => {
+                this.props.updateSelected(provider._id);
+              }}
+            >
+              <td>{provider.name} </td>
+            </tr>
+            <div>{providers.map((provider, id) => (
               <Link to={'/provider/${id}'}>{provider}</Link>
             ))
-          }
-          </div>
-          
+            }
+            </div>
 
-        </>
+
+          </>
         );
       });
-      console.log(providers)
-    
+    console.log(providers);
+
     return (
       <React.Fragment>
-          <tbody>
-            {providerList}
-          </tbody>
+        <tbody>
+          {providerList}
+        </tbody>
       </React.Fragment>
 
     );

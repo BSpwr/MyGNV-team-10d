@@ -6,6 +6,8 @@ import CategoryEdit from './CategoryEdit';
 import SubCategoryEdit from './SubCategoryEdit';
 import CategoryDelete from './CategoryDelete';
 
+// This component creates a
+
 class CategoryAdmin extends React.Component {
   constructor(props) {
     super(props);
@@ -170,5 +172,3 @@ class CategoryAdmin extends React.Component {
 }
 
 export default CategoryAdmin;
-
-// list all top level categories

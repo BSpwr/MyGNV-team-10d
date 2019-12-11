@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 const { ObjectId } = require('mongodb');
 
+// A schema for holding provider information
 const providerSchema = new Schema({
   name: { type: String, required: true },
   services_provided: String,
@@ -68,6 +68,7 @@ const providerSchema = new Schema({
   categories: [{ type: ObjectId, ref: 'Category' }],
 });
 
+// Add updated_at and created_at fields
 providerSchema.pre('save', function(next) {
   const currDate = new Date();
   // Update the updated_at property

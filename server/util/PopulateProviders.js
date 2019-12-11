@@ -5,6 +5,15 @@ const Category = require('../models/CategorySchema');
 const Provider = require('../models/ProviderSchema');
 const config = require('../config/config');
 
+// Populate mongoDB with providers from ./data.json
+// Category names must match names used in PopulateCategories
+// Use PopulateCategories then this script (PopulateProviders),
+// to populate DB based on ./data.json
+
+// BY DEFAULT THIS SCRIPT WILL DELETE ALL PROVIDERS AND
+// REPOPULATE MONGODB. DANGER, WARNING, CAUTION!!
+// BE ABSOLUTELY SURE THAT YOU WANT TO DO THIS!!
+
 mongoose.connect(config.db.uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
